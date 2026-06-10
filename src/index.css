@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@layer base {
+  /* Estilos globais que valem para todo o site */
+  html {
+    scroll-behavior: smooth;
+  }
+ 
+  body {
+    font-family: 'Lato', sans-serif;
+    background-color: #FBF9F7;
+    color: #4E443A;
+    line-height: 1.6;
+    /* Espaço para o header fixo não cobrir o conteúdo */
+    padding-top: 70px;
+  }
+ 
+  /* Todos os títulos usam a fonte Playfair Display */
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+  }
+ 
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+}
