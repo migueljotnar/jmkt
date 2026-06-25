@@ -37,7 +37,7 @@ export default function Header() {
           aria-label="Logo Jessyane Soares - Ir para início"
           className="mb-4 md:mb-0"
         >
-          <img src="/logo.jpeg" alt="Logo Jessyane Soares" className="h-[50px]" />
+          <img src="/logo.png" alt="Logo Jessyane Soares" className="h-[50px]" />
         </Link>
  
         {/* Links de navegação */}
