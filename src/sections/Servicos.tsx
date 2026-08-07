@@ -19,19 +19,20 @@ function ServiceCard({ service }: { service: ServiceData }) {
       <img
         src={service.coverImage}
         alt={service.coverAlt}
-        className="w-full h-[330px] object-cover transition-transform duration-500 group-hover:scale-110"
+        className="w-full h-[220px] sm:h-[280px] md:h-[330px] object-cover transition-transform duration-500 group-hover:scale-110"
       />
  
-      <div className="p-4 text-center">
-        <h3 className="text-2xl mb-2">{service.title}</h3>
-        <p className="text-gray-500 text-sm mb-4">{service.description}</p>
+      <div className="p-3 sm:p-4 text-center">
+        <h3 className="text-xl sm:text-2xl mb-2">{service.title}</h3>
+        <p className="text-gray-500 text-xs sm:text-sm mb-3 sm:mb-4">{service.description}</p>
  
         {/* Botão que aparece apenas no hover */}
         <Link
           to={`/servicos/${service.slug}`}
-          className="inline-block bg-[#A1887F] text-white px-7 py-3 rounded no-underline font-bold
-            opacity-0 translate-y-5
-            group-hover:opacity-100 group-hover:translate-y-0
+          className="inline-block bg-[#A1887F] text-white px-5 py-2 sm:px-7 sm:py-3 rounded no-underline font-bold text-sm sm:text-base
+            opacity-100 translate-y-0
+            md:opacity-0 md:translate-y-5
+            md:group-hover:opacity-100 md:group-hover:translate-y-0
             transition-all duration-[400ms]"
         >
           Veja mais
@@ -43,11 +44,11 @@ function ServiceCard({ service }: { service: ServiceData }) {
  
 export default function Servicos() {
   return (
-    <section id="servicos" className="max-w-[1100px] mx-auto px-8 py-16">
-      <h2 className="text-4xl text-center mb-8">Nossos Serviços</h2>
+    <section id="servicos" className="max-w-[1100px] mx-auto px-4 sm:px-8 py-10 sm:py-16">
+      <h2 className="text-3xl sm:text-4xl text-center mb-6 sm:mb-8">Nossos Serviços</h2>
  
       {/* Grid responsivo: adapta as colunas ao tamanho da tela */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 sm:gap-6">
         {services.map((service) => (
           <ServiceCard key={service.slug} service={service} />
         ))}
