@@ -26,14 +26,12 @@ function ServiceCard({ service }: { service: ServiceData }) {
         <h3 className="text-xl sm:text-2xl mb-2">{service.title}</h3>
         <p className="text-gray-500 text-xs sm:text-sm mb-3 sm:mb-4">{service.description}</p>
  
-        {/* Botão que aparece apenas no hover */}
+        {/* Botão sempre visível em mobile/tablet e com efeito hover no desktop */}
         <Link
           to={`/servicos/${service.slug}`}
-          className="inline-block bg-[#A1887F] text-white px-5 py-2 sm:px-7 sm:py-3 rounded no-underline font-bold text-sm sm:text-base
+          className="inline-block bg-[#A1887F] text-white px-5 py-2 sm:px-7 sm:py-3 rounded no-underline font-bold text-sm sm:text-base transition-all duration-[400ms] hover:bg-[#8D6E63] mt-2 mb-2
             opacity-100 translate-y-0
-            md:opacity-0 md:translate-y-5
-            md:group-hover:opacity-100 md:group-hover:translate-y-0
-            transition-all duration-[400ms]"
+            lg:opacity-0 lg:translate-y-5 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"
         >
           Veja mais
         </Link>

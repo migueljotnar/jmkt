@@ -6,32 +6,20 @@ import Footer from './Footer'
 interface ServicePageProps {
   service: ServiceData
 }
- 
+
 // Este componente é o "molde" para todas as 6 páginas de serviço.
 // Cada página passa seus dados e o visual é gerado automaticamente.
 export default function ServicePage({ service }: ServicePageProps) {
   return (
     <div className="bg-[#FBF9F7]">
       <Header />
- 
+
       <main>
-        {/* Seção do título e vídeo */}
+        {/* Seção principal com título */}
         <section className="max-w-[1100px] mx-auto px-4 sm:px-8 py-8 sm:py-16">
           <h2 className="text-3xl sm:text-4xl text-center mb-6 sm:mb-8">{service.title}</h2>
- 
-          {/* Container responsivo para vídeo 16:9 */}
-          {/* O truque do padding-bottom: 56.25% mantém a proporção em qualquer tela */}
-          <div className="relative pb-[56.25%] h-0 overflow-hidden max-w-full bg-black mb-8">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src={service.videoUrl}
-              title={service.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
         </section>
- 
+
         {/* Galeria de fotos */}
         <section className="max-w-[1100px] mx-auto px-4 sm:px-8 py-8 sm:py-16">
           <h3 className="text-xl sm:text-2xl mb-4 sm:mb-6">Galeria de Fotos</h3>
@@ -51,7 +39,7 @@ export default function ServicePage({ service }: ServicePageProps) {
             ))}
           </div>
         </section>
- 
+
         {/* Botão de contato */}
         <section className="max-w-[1100px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
           <div className="text-center mb-8">
@@ -64,7 +52,7 @@ export default function ServicePage({ service }: ServicePageProps) {
           </div>
         </section>
       </main>
- 
+
       <Footer />
     </div>
   )

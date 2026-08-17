@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
- 
+
 export default function Header() {
   // Controla a sombra do header ao rolar a página
   const [scrolled, setScrolled] = useState(false)
   // Controla se o menu mobile está aberto
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
- 
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
@@ -30,7 +30,7 @@ export default function Header() {
     }
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
- 
+
   // Classe de link reutilizável para os itens de navegação
   const navLinkClass =
     'no-underline text-[#4E443A] font-bold transition-all duration-300 border-b-2 border-transparent hover:text-[#A1887F] hover:border-[#A1887F] pb-1'
@@ -38,7 +38,7 @@ export default function Header() {
   // Classe para links no menu mobile (mais espaço, fonte maior)
   const mobileNavLinkClass =
     'block no-underline text-[#4E443A] font-bold text-lg py-3 transition-all duration-300 hover:text-[#A1887F]'
- 
+
   // Verifica se estamos na página principal para usar âncora nativa
   const isHomePage = location.pathname === '/'
 
@@ -67,9 +67,8 @@ export default function Header() {
   return (
     <>
       <header
-        className={`bg-white fixed w-full top-0 z-[100] transition-shadow duration-300 ${
-          scrolled ? 'shadow-md' : 'shadow-sm'
-        }`}
+        className={`bg-white fixed w-full top-0 z-[100] transition-shadow duration-300 ${scrolled ? 'shadow-md' : 'shadow-sm'
+          }`}
       >
         <nav className="flex justify-between items-center max-w-[1200px] mx-auto px-4 sm:px-8 py-2">
           {/* Logo clicável que leva ao topo */}
@@ -96,19 +95,16 @@ export default function Header() {
           >
             {/* 3 linhas que se transformam em X quando aberto */}
             <span
-              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${
-                menuOpen ? 'rotate-45 translate-y-[7px]' : ''
-              }`}
+              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''
+                }`}
             />
             <span
-              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${
-                menuOpen ? 'opacity-0' : ''
-              }`}
+              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${menuOpen ? 'opacity-0' : ''
+                }`}
             />
             <span
-              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${
-                menuOpen ? '-rotate-45 -translate-y-[7px]' : ''
-              }`}
+              className={`block w-6 h-[2px] bg-[#4E443A] rounded transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''
+                }`}
             />
           </button>
 
@@ -132,9 +128,8 @@ export default function Header() {
 
       {/* Overlay escuro quando o menu mobile está aberto */}
       <div
-        className={`fixed inset-0 bg-black/50 z-[98] transition-opacity duration-300 md:hidden ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-black/50 z-[98] transition-opacity duration-300 md:hidden ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+          }`}
         onClick={() => setMenuOpen(false)}
       />
 
