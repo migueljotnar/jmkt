@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-// Classe de link reutilizável para os itens de navegação
 const navLinkClass =
   'no-underline text-cream/90 text-sm font-bold uppercase tracking-wide transition-all duration-300 border-b-2 border-transparent hover:text-accent hover:border-accent pb-1'
 
-// Classe para links no menu mobile (mais espaço, fonte maior)
 const mobileNavLinkClass =
   'block no-underline text-cream font-bold text-lg py-3 transition-all duration-300 hover:text-accent'
 
-// Componente de link que usa âncora nativa na home e Link em outras páginas.
-// Fica fora do Header para não ser recriado a cada render.
+// Fica fora do Header para não ser recriado (e perder estado) a cada render.
 function NavLink({
   sectionId,
   children,
@@ -44,9 +41,7 @@ function NavLink({
 }
 
 export default function Header() {
-  // Controla a sombra do header ao rolar a página
   const [scrolled, setScrolled] = useState(false)
-  // Controla se o menu mobile está aberto
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
@@ -58,15 +53,14 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Fecha o menu ao mudar de rota (ajusta o estado durante o render em vez de
-  // usar um efeito, evitando um re-render em cascata a cada navegação)
+  // Fecha o menu ao mudar de rota. Ajustado durante o render (em vez de um
+  // useEffect) para não causar um re-render extra a cada navegação.
   const [lastLocationKey, setLastLocationKey] = useState(location.key)
   if (location.key !== lastLocationKey) {
     setLastLocationKey(location.key)
     setMenuOpen(false)
   }
 
-  // Impede scroll do body quando o menu mobile está aberto
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
@@ -76,7 +70,6 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
-  // Verifica se estamos na página principal para usar âncora nativa
   const isHomePage = location.pathname === '/'
   const closeMenu = () => setMenuOpen(false)
 
@@ -87,7 +80,6 @@ export default function Header() {
           }`}
       >
         <nav className="flex justify-between items-center max-w-[1200px] mx-auto px-4 sm:px-8 py-3">
-          {/* Logo clicável que leva ao topo */}
           <Link
             to="/"
             onClick={(e) => {
@@ -106,14 +98,12 @@ export default function Header() {
             />
           </Link>
 
-          {/* Botão hambúrguer — visível apenas em mobile */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] bg-transparent border-none cursor-pointer z-[110]"
             aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={menuOpen}
           >
-            {/* 3 linhas que se transformam em X quando aberto */}
             <span
               className={`block w-6 h-[2px] bg-cream rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''
                 }`}
@@ -128,7 +118,6 @@ export default function Header() {
             />
           </button>
 
-          {/* Links de navegação — Desktop (escondido em mobile) */}
           <ul className="hidden md:flex list-none gap-8">
             <li>
               <NavLink sectionId="inicio" isHomePage={isHomePage} onNavigate={closeMenu}>Início</NavLink>
@@ -146,14 +135,12 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Overlay escuro quando o menu mobile está aberto */}
       <div
         className={`fixed inset-0 bg-black/60 z-[98] transition-opacity duration-300 md:hidden ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setMenuOpen(false)}
       />
 
-      {/* Menu mobile — painel lateral que desliza da direita */}
       <div
         className={`fixed top-0 right-0 h-full w-[280px] bg-ink-soft z-[99] shadow-[-5px_0_15px_rgba(0,0,0,0.3)] border-l border-hairline
           transition-transform duration-300 ease-in-out md:hidden

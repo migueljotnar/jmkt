@@ -1,6 +1,3 @@
-// Aqui ficam todos os dados dos serviços.
-// Quando quiser atualizar um vídeo ou foto, é só mudar aqui!
-
 export interface GalleryItem {
   src: string
   alt: string

@@ -3,7 +3,6 @@ import { services, type ServiceData } from '../data/services'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import { Button, Eyebrow, IconCircle } from '../components/UI'
 
-// Ícones simples (24x24, stroke) para cada serviço, mapeados pelo slug.
 // Ficam aqui (e não em services.tsx) para manter o arquivo de dados livre de JSX.
 const serviceIcons: Record<string, React.ReactNode> = {
   gastronomia: (
@@ -43,8 +42,6 @@ const serviceIcons: Record<string, React.ReactNode> = {
   ),
 }
 
-// Card individual de cada serviço com animação de entrada e hover.
-// O card inteiro é clicável (leva à página do serviço).
 function ServiceCard({ service }: { service: ServiceData }) {
   const { ref, isVisible } = useScrollAnimation<HTMLAnchorElement>()
 

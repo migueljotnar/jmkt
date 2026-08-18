@@ -1,15 +1,9 @@
 import { Link } from 'react-router-dom'
 
-// Pequenos blocos visuais reutilizados em várias seções (Hero, Sobre, Serviços,
-// Contato, páginas de serviço) para não repetir as mesmas classes longas em
-// cada arquivo.
-
-// Losango decorativo usado antes dos rótulos pequenos ("eyebrows")
 function Diamond() {
   return <span className="block h-1.5 w-1.5 rotate-45 bg-accent" aria-hidden="true" />
 }
 
-// Rótulo pequeno, uppercase, com tracking largo — ex: "SOBRE MIM ◆"
 export function Eyebrow({
   children,
   align = 'left',
@@ -30,7 +24,6 @@ export function Eyebrow({
   )
 }
 
-// Círculo com borda fina usado em ícones de serviço, contato e selos decorativos
 export function IconCircle({
   children,
   size = 'md',

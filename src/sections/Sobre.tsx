@@ -5,7 +5,6 @@ export default function Sobre() {
     <section id="sobre" className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16">
       <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-12 sm:px-10 sm:py-16 md:p-16">
         <div className="flex flex-col md:flex-row items-center gap-14 md:gap-16">
-          {/* Foto com selo decorativo sobreposto */}
           <div className="relative w-full max-w-[380px] flex-shrink-0">
             <img
               src="/Imagens/Index/Foto-sobre.jpeg"
@@ -19,7 +18,6 @@ export default function Sobre() {
             </div>
           </div>
 
-          {/* Texto */}
           <div className="text-center md:text-left">
             <Eyebrow className="justify-center md:justify-start">Sobre mim</Eyebrow>
             <h2 className="text-3xl sm:text-4xl leading-tight mb-6">

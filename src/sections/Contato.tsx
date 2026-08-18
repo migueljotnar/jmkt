@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Button, Eyebrow, IconCircle } from '../components/UI'
 
-// Ícone oficial do WhatsApp (balão + fone), em verde de marca — igual ao
-// usado no próprio app — em vez de um traço genérico.
+// Ícone oficial do WhatsApp, em verde de marca — igual ao usado no app.
 function WhatsAppIcon() {
   return (
     <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
@@ -19,8 +18,7 @@ function WhatsAppIcon() {
   )
 }
 
-// Ícone oficial do Instagram (câmera + gradiente de marca) — mesmo
-// tratamento do WhatsApp, em vez do traço genérico de antes.
+// Ícone oficial do Instagram, com o gradiente de marca — mesmo tratamento do WhatsApp.
 function InstagramIcon() {
   return (
     <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
@@ -51,15 +49,15 @@ function MailIcon() {
 
 const numeroWhatsApp = '5568999582647'
 
-// O e-mail ainda não existe no projeto — fica como placeholder visível
-// (sem link) até a Jessyane passar o dado real.
+// `branded: true` = o ícone já vem com seu próprio círculo/gradiente de marca,
+// então dispensa o IconCircle genérico usado no e-mail.
+// O e-mail ainda não existe no projeto — fica como placeholder visível até a
+// Jessyane passar o dado real.
 const contactItems = [
   {
     label: 'Fale comigo no WhatsApp',
     href: `https://wa.me/${numeroWhatsApp}`,
     icon: <WhatsAppIcon />,
-    // Os ícones do WhatsApp e do Instagram já vêm com o próprio círculo/gradiente
-    // da marca, então não usam o IconCircle genérico (cinza/dourado) do e-mail.
     branded: true,
   },
   {
@@ -76,7 +74,6 @@ const contactItems = [
 ]
 
 export default function Contato() {
-  // Estado de cada campo do formulário
   const [nome, setNome] = useState('')
   const [servico, setServico] = useState('')
   const [mensagem, setMensagem] = useState('')
@@ -90,7 +87,6 @@ export default function Contato() {
       return
     }
 
-    // Monta a mensagem do WhatsApp
     const texto = `Olá! Meu nome é *${nome}*.
 Tenho interesse no serviço: *${servico}*.
 
@@ -101,7 +97,7 @@ Mensagem: ${mensagem}`
     setIsLoading(true)
     window.open(url, '_blank')
 
-    // Restaura o botão após 2 segundos
+    // Reabilita o botão depois de dar tempo do WhatsApp abrir
     setTimeout(() => setIsLoading(false), 2000)
   }
 
@@ -110,7 +106,7 @@ Mensagem: ${mensagem}`
 
   const labelClass = 'block mb-2 font-semibold text-cream text-sm sm:text-base'
 
-  const opcoeServicos = [
+  const opcoesServicos = [
     'Gastronomia',
     'Gestão de Perfil',
     'Filmmaker',
@@ -123,7 +119,6 @@ Mensagem: ${mensagem}`
     <section id="contato" className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16">
       <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-12 sm:px-10 sm:py-16 md:p-16">
         <div className="grid lg:grid-cols-2 gap-14">
-          {/* Coluna esquerda: intro + contatos */}
           <div className="text-center lg:text-left">
             <Eyebrow className="justify-center lg:justify-start">Fale comigo</Eyebrow>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4">Entre em Contato</h2>
@@ -133,31 +128,35 @@ Mensagem: ${mensagem}`
             </p>
 
             <div className="flex flex-col gap-5 items-center lg:items-start">
-              {contactItems.map((item) =>
-                item.href ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 text-cream transition-colors duration-300 hover:text-accent"
-                  >
-                    {item.branded ? item.icon : <IconCircle>{item.icon}</IconCircle>}
-                    <span className="font-semibold">{item.label}</span>
-                  </a>
-                ) : (
+              {contactItems.map((item) => {
+                const icon = item.branded ? item.icon : <IconCircle>{item.icon}</IconCircle>
+
+                if (item.href) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 text-cream transition-colors duration-300 hover:text-accent"
+                    >
+                      {icon}
+                      <span className="font-semibold">{item.label}</span>
+                    </a>
+                  )
+                }
+
+                return (
                   <div key={item.label} className="flex items-center gap-4 text-cream/70">
-                    {item.branded ? item.icon : <IconCircle>{item.icon}</IconCircle>}
+                    {icon}
                     <span className="font-semibold">{item.label}</span>
                   </div>
                 )
-              )}
+              })}
             </div>
           </div>
 
-          {/* Coluna direita: formulário */}
           <form onSubmit={handleSubmit} className="text-left">
-            {/* Campo Nome */}
             <div className="mb-5 sm:mb-6">
               <label htmlFor="nome" className={labelClass}>Nome:</label>
               <input
@@ -172,7 +171,6 @@ Mensagem: ${mensagem}`
               />
             </div>
 
-            {/* Select de Serviços */}
             <div className="mb-5 sm:mb-6">
               <label htmlFor="servicos-select" className={labelClass}>Serviços de Interesse:</label>
               <select
@@ -191,13 +189,12 @@ Mensagem: ${mensagem}`
                 }}
               >
                 <option value="" disabled>Selecione um serviço</option>
-                {opcoeServicos.map((s) => (
+                {opcoesServicos.map((s) => (
                   <option key={s} value={s}>{s}</option>
                 ))}
               </select>
             </div>
 
-            {/* Campo Mensagem */}
             <div className="mb-6 sm:mb-8">
               <label htmlFor="mensagem" className={labelClass}>Mensagem:</label>
               <textarea
@@ -212,7 +209,6 @@ Mensagem: ${mensagem}`
               />
             </div>
 
-            {/* Botão de envio */}
             <Button
               type="submit"
               variant="solid"

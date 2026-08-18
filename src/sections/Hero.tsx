@@ -3,10 +3,8 @@ import { Button, Eyebrow } from '../components/UI'
 export default function Hero() {
   return (
     <section id="inicio" className="bg-ink">
-      {/* Grid de 2 colunas que ocupa a largura toda da tela (sem max-width) para a
-          foto "vazar" até a borda direita, igual à referência */}
+      {/* Sem max-width: a coluna da foto ocupa até a borda da tela no desktop */}
       <div className="grid md:grid-cols-2 md:h-screen">
-        {/* Coluna de texto */}
         <div className="order-2 md:order-1 flex items-center">
           <div className="w-full max-w-[560px] mx-auto md:mr-0 md:ml-auto px-4 sm:px-8 md:pl-8 lg:pl-16 md:pr-10 lg:pr-14 py-14 md:py-0 text-center md:text-left">
             <Eyebrow className="justify-center md:justify-start">Bem-vinda ao meu mundo</Eyebrow>
@@ -23,7 +21,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Coluna de imagem — sangra até a borda da tela no desktop */}
         <div className="order-1 md:order-2 relative h-[320px] sm:h-[420px] md:h-auto">
           <img
             src="/Imagens/Index/Background-inicio.png"

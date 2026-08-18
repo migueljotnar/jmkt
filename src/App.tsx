@@ -3,15 +3,12 @@ import { useEffect } from 'react'
 import HomePage from './pages/HomePage'
 import ServicoPage from './pages/ServicoPage'
  
-// Componente que rola a página corretamente ao navegar
-// - Se a URL tem uma âncora (#sobre, #servicos...), rola até ela
-// - Se não tem, vai para o topo
 function ScrollHandler() {
   const { pathname, hash } = useLocation()
- 
+
   useEffect(() => {
     if (hash) {
-      // Pequeno delay para garantir que a página renderizou
+      // Delay para garantir que a página já renderizou antes de rolar
       setTimeout(() => {
         const elemento = document.querySelector(hash)
         if (elemento) {
@@ -31,9 +28,7 @@ export default function App() {
     <>
       <ScrollHandler />
       <Routes>
-        {/* Página principal */}
         <Route path="/" element={<HomePage />} />
-        {/* Páginas de serviço: /servicos/filmmaker, /servicos/gastronomia, etc. */}
         <Route path="/servicos/:slug" element={<ServicoPage />} />
       </Routes>
     </>

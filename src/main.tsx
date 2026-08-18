@@ -6,7 +6,6 @@ import App from './App'
  
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {/* BrowserRouter habilita a navegação entre páginas */}
     <BrowserRouter>
       <App />
     </BrowserRouter>

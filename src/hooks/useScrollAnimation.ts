@@ -1,30 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
- 
-// Hook que detecta quando um elemento entra na tela
-// e retorna se ele está visível ou não.
-// Usado para animar os cards de serviço ao rolar a página.
+
+// Marca `isVisible` como true na primeira vez que o elemento referenciado
+// entra na tela (10% visível), depois para de observar.
 export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null)
   const [isVisible, setIsVisible] = useState(false)
- 
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Quando o elemento aparece na tela, marca como visível
         if (entry.isIntersecting) {
           setIsVisible(true)
-          observer.disconnect() // Para de observar depois de aparecer
+          observer.disconnect()
         }
       },
-      { threshold: 0.1 } // Aciona quando 10% do elemento está visível
+      { threshold: 0.1 }
     )
- 
+
     if (ref.current) {
       observer.observe(ref.current)
     }
- 
+
     return () => observer.disconnect()
   }, [])
- 
+
   return { ref, isVisible }
 }

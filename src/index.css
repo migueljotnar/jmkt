@@ -12,8 +12,6 @@
 }
 
 @layer base {
-
-  /* Estilos globais que valem para todo o site */
   html {
     scroll-behavior: smooth;
   }
@@ -23,11 +21,10 @@
     background-color: var(--color-ink);
     color: var(--color-body);
     line-height: 1.6;
-    /* Espaço para o header fixo não cobrir o conteúdo */
+    /* Compensa a altura do header fixo para não cobrir o conteúdo */
     padding-top: 76px;
   }
 
-  /* Todos os títulos usam a fonte Playfair Display */
   h1,
   h2,
   h3 {
