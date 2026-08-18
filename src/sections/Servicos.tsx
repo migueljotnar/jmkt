@@ -1,55 +1,100 @@
 import { Link } from 'react-router-dom'
 import { services, type ServiceData } from '../data/services'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
- 
-// Card individual de cada serviço com animação de entrada e hover
+import { Button, Eyebrow, IconCircle } from '../components/UI'
+
+// Ícones simples (24x24, stroke) para cada serviço, mapeados pelo slug.
+// Ficam aqui (e não em services.tsx) para manter o arquivo de dados livre de JSX.
+const serviceIcons: Record<string, React.ReactNode> = {
+  gastronomia: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 2v7a2 2 0 0 0 4 0V2M8 9v13M16 2c-1.7 0-3 2-3 5s1.3 5 3 5v10" />
+    </svg>
+  ),
+  'gestao-de-perfil': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="8" r="3.2" />
+      <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
+    </svg>
+  ),
+  filmmaker: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 10h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Z" />
+      <path d="M4 10 5 5h14l1 5M8 5l1 5M13 5l1 5" />
+    </svg>
+  ),
+  videomaker: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="7" width="12" height="10" rx="1.5" />
+      <path d="M15 10.5 21 7.5v9L15 13.5" />
+    </svg>
+  ),
+  'fotos-pessoais': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 8a1 1 0 0 1 1-1h2l1.2-2h7.6L17 7h2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Z" />
+      <circle cx="12" cy="13" r="3.3" />
+    </svg>
+  ),
+  'criacao-de-sites': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="4.5" width="18" height="12" rx="1.5" />
+      <path d="M3 8.5h18M8 20h8M12 16.5V20" />
+    </svg>
+  ),
+}
+
+// Card individual de cada serviço com animação de entrada e hover.
+// O card inteiro é clicável (leva à página do serviço).
 function ServiceCard({ service }: { service: ServiceData }) {
-  const { ref, isVisible } = useScrollAnimation()
- 
+  const { ref, isVisible } = useScrollAnimation<HTMLAnchorElement>()
+
   return (
-    // "group" permite que filhos reajam ao hover do card inteiro
-    <div
+    <Link
       ref={ref}
-      className={`group bg-white rounded shadow-[0_5px_15px_rgba(0,0,0,0.1)] overflow-hidden cursor-pointer relative
-        transition-all duration-700
+      to={`/servicos/${service.slug}`}
+      className={`group relative block rounded-2xl overflow-hidden border border-hairline transition-all duration-700
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
       `}
     >
-      {/* Imagem que escala no hover */}
       <img
         src={service.coverImage}
         alt={service.coverAlt}
-        className="w-full h-[220px] sm:h-[280px] md:h-[330px] object-cover transition-transform duration-500 group-hover:scale-110"
+        className="w-full h-[200px] sm:h-[220px] object-cover transition-transform duration-500 group-hover:scale-110"
       />
- 
-      <div className="p-3 sm:p-4 text-center">
-        <h3 className="text-xl sm:text-2xl mb-2">{service.title}</h3>
-        <p className="text-gray-500 text-xs sm:text-sm mb-3 sm:mb-4">{service.description}</p>
- 
-        {/* Botão sempre visível em mobile/tablet e com efeito hover no desktop */}
-        <Link
-          to={`/servicos/${service.slug}`}
-          className="inline-block bg-[#A1887F] text-white px-5 py-2 sm:px-7 sm:py-3 rounded no-underline font-bold text-sm sm:text-base transition-all duration-[400ms] hover:bg-[#8D6E63] mt-2 mb-2
-            opacity-100 translate-y-0
-            lg:opacity-0 lg:translate-y-5 lg:group-hover:opacity-100 lg:group-hover:translate-y-0"
-        >
-          Veja mais
-        </Link>
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
+      <div className="absolute left-3 right-3 bottom-3 flex items-center gap-3 rounded-full bg-ink/80 backdrop-blur-sm border border-hairline py-1.5 pl-1.5 pr-4">
+        <IconCircle size="sm">{serviceIcons[service.slug]}</IconCircle>
+        <span className="text-cream font-semibold text-sm truncate">{service.title}</span>
       </div>
-    </div>
+    </Link>
   )
 }
- 
+
 export default function Servicos() {
   return (
-    <section id="servicos" className="max-w-[1100px] mx-auto px-4 sm:px-8 py-10 sm:py-16">
-      <h2 className="text-3xl sm:text-4xl text-center mb-6 sm:mb-8">Nossos Serviços</h2>
- 
-      {/* Grid responsivo: adapta as colunas ao tamanho da tela */}
-      <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4 sm:gap-6">
-        {services.map((service) => (
-          <ServiceCard key={service.slug} service={service} />
-        ))}
+    <section id="servicos" className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16">
+      <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-12 sm:px-10 sm:py-16 md:p-16">
+        <Eyebrow align="center">Nossos Serviços</Eyebrow>
+
+        <div className="grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-14 items-start">
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl leading-tight mb-4">
+              Soluções criativas para marcas que querem <span className="italic text-accent">se destacar</span>.
+            </h2>
+            <p className="text-body mb-8">
+              Estratégia, criatividade e produção em um só lugar para transformar ideias em resultados.
+            </p>
+            <Button href="#contato" variant="outline" className="px-7 py-3.5 text-sm sm:text-base">
+              Fale comigo
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
+            {services.map((service) => (
+              <ServiceCard key={service.slug} service={service} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )

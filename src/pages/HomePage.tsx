@@ -8,7 +8,7 @@ import Contato from '../sections/Contato'
 // Página principal: junta todas as seções na ordem correta
 export default function HomePage() {
   return (
-    <div className="bg-[#FBF9F7]">
+    <div className="bg-ink">
       <Header />
       <main>
         <Hero />

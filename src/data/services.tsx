@@ -26,9 +26,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Serviço de Gastronomia',
     description: 'Produção de conteúdo visual para restaurantes e marcas de alimentos.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Foto de Gastronomia 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Gastronomia 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Gastronomia 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/gastronomia-principal.jpg', alt: 'Foto de Gastronomia 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/gastronomia-principal.jpg', alt: 'Foto de Gastronomia 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/gastronomia-principal.jpg', alt: 'Foto de Gastronomia 3', description: 'Descrição da foto 3.' },
     ],
   },
   {
@@ -39,9 +39,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Serviço de Gestão de Perfil',
     description: 'Criação de conteúdo e gerenciamento de redes sociais.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Foto de Gestão de Perfil 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Gestão de Perfil 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Gestão de Perfil 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/gestao-de-perfil-principal.png', alt: 'Foto de Gestão de Perfil 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/gestao-de-perfil-principal.png', alt: 'Foto de Gestão de Perfil 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/gestao-de-perfil-principal.png', alt: 'Foto de Gestão de Perfil 3', description: 'Descrição da foto 3.' },
     ],
   },
   {
@@ -52,9 +52,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Serviço de Filmmaker',
     description: 'Direção e produção de curtas, documentários e projetos cinematográficos.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Foto de Filmmaker 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Filmmaker 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Filmmaker 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/Filmmaker-principal.png', alt: 'Foto de Filmmaker 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/Filmmaker-principal.png', alt: 'Foto de Filmmaker 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/Filmmaker-principal.png', alt: 'Foto de Filmmaker 3', description: 'Descrição da foto 3.' },
     ],
   },
   {
@@ -65,9 +65,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Serviço de Videomaker',
     description: 'Gravação e edição de vídeos para eventos, empresas e conteúdo digital.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Foto de Videomaker 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Videomaker 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Foto de Videomaker 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/videomaker-principal.png', alt: 'Foto de Videomaker 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/videomaker-principal.png', alt: 'Foto de Videomaker 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/videomaker-principal.png', alt: 'Foto de Videomaker 3', description: 'Descrição da foto 3.' },
     ],
   },
   {
@@ -78,9 +78,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Fotos Pessoais',
     description: 'Fotos de eventos, comemorações e momentos especiais.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Foto Pessoal 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Foto Pessoal 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Foto Pessoal 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/pessoais-principal.png', alt: 'Foto Pessoal 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/pessoais-principal.png', alt: 'Foto Pessoal 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/pessoais-principal.png', alt: 'Foto Pessoal 3', description: 'Descrição da foto 3.' },
     ],
   },
   {
@@ -91,9 +91,9 @@ export const services: ServiceData[] = [
     coverAlt: 'Criação de Sites',
     description: 'Desenvolvimento de sites modernos e responsivos para empresas e empreendedores.',
     gallery: [
-      { src: '/pages/ref.jpg', alt: 'Criação de Sites 1', description: 'Descrição da foto 1.' },
-      { src: '/pages/ref.jpg', alt: 'Criação de Sites 2', description: 'Descrição da foto 2.' },
-      { src: '/pages/ref.jpg', alt: 'Criação de Sites 3', description: 'Descrição da foto 3.' },
+      { src: '/Imagens/Index/sites-principal.png', alt: 'Criação de Sites 1', description: 'Descrição da foto 1.' },
+      { src: '/Imagens/Index/sites-principal.png', alt: 'Criação de Sites 2', description: 'Descrição da foto 2.' },
+      { src: '/Imagens/Index/sites-principal.png', alt: 'Criação de Sites 3', description: 'Descrição da foto 3.' },
     ],
   },
 ]

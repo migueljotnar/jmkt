@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
+@theme {
+  --color-ink: #14211a;
+  --color-ink-soft: #1b2b21;
+  --color-ink-elevated: #223420;
+  --color-cream: #f6f3ea;
+  --color-body: #c7cbbe;
+  --color-accent: #b7c17e;
+  --color-accent-strong: #9daa5e;
+  --color-hairline: rgba(246, 243, 234, 0.12);
+}
+
 @layer base {
+
   /* Estilos globais que valem para todo o site */
   html {
     scroll-behavior: smooth;
   }
- 
+
   body {
     font-family: 'Lato', sans-serif;
-    background-color: #FBF9F7;
-    color: #4E443A;
+    background-color: var(--color-ink);
+    color: var(--color-body);
     line-height: 1.6;
     /* Espaço para o header fixo não cobrir o conteúdo */
-    padding-top: 70px;
+    padding-top: 76px;
   }
- 
+
   /* Todos os títulos usam a fonte Playfair Display */
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
+    color: var(--color-cream);
   }
- 
+
   p {
     font-size: 1rem;
     margin-bottom: 1rem;

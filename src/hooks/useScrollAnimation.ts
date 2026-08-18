@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 // Hook que detecta quando um elemento entra na tela
 // e retorna se ele está visível ou não.
 // Usado para animar os cards de serviço ao rolar a página.
-export function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null)
+export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>() {
+  const ref = useRef<T>(null)
   const [isVisible, setIsVisible] = useState(false)
  
   useEffect(() => {
