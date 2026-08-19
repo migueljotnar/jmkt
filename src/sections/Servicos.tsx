@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { services, type ServiceData } from '../data/services'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { Button, Eyebrow, IconCircle } from '../components/UI'
+import Foliage from '../components/Foliage'
+import { Button, IconCircle, LeafMark } from '../components/UI'
 
 // Ficam aqui (e não em services.tsx) para manter o arquivo de dados livre de JSX.
 const serviceIcons: Record<string, React.ReactNode> = {
@@ -42,6 +43,11 @@ const serviceIcons: Record<string, React.ReactNode> = {
   ),
 }
 
+const serviceOrder = ['gastronomia', 'gestao-de-perfil', 'filmmaker', 'videomaker', 'criacao-de-sites', 'fotos-pessoais']
+const displayedServices = serviceOrder
+  .map((slug) => services.find((service) => service.slug === slug))
+  .filter((service): service is ServiceData => Boolean(service))
+
 function ServiceCard({ service }: { service: ServiceData }) {
   const { ref, isVisible } = useScrollAnimation<HTMLAnchorElement>()
 
@@ -49,19 +55,22 @@ function ServiceCard({ service }: { service: ServiceData }) {
     <Link
       ref={ref}
       to={`/servicos/${service.slug}`}
-      className={`group relative block rounded-2xl overflow-hidden border border-hairline transition-all duration-700
+      className={`glass-card group block overflow-hidden rounded-xl transition-all duration-700 outline-none hover:-translate-y-1 hover:border-accent/35 hover:shadow-[0_20px_44px_rgba(0,0,0,.24)] focus-visible:ring-2 focus-visible:ring-accent/55
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
       `}
     >
-      <img
-        src={service.coverImage}
-        alt={service.coverAlt}
-        className="w-full h-[200px] sm:h-[220px] object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/20 to-transparent" />
-      <div className="absolute left-3 right-3 bottom-3 flex items-center gap-3 rounded-full bg-ink/80 backdrop-blur-sm border border-hairline py-1.5 pl-1.5 pr-4">
-        <IconCircle size="sm">{serviceIcons[service.slug]}</IconCircle>
-        <span className="text-cream font-semibold text-sm truncate">{service.title}</span>
+      <div className="relative overflow-hidden">
+        <img
+          src={service.coverImage}
+          alt={service.coverAlt}
+          loading="lazy"
+          className="h-[170px] w-full object-cover opacity-95 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100 sm:h-[185px]"
+        />
+        <div className="image-glass-overlay absolute inset-0 transition-opacity duration-500 group-hover:opacity-70" aria-hidden="true" />
+      </div>
+      <div className="relative flex min-h-14 items-center gap-3 border-t border-accent/12 bg-ink/28 px-4 py-2 backdrop-blur-xl">
+        <IconCircle size="sm" className="-mt-8 h-10 w-10 bg-ink/45">{serviceIcons[service.slug]}</IconCircle>
+        <span className="font-['Playfair_Display',serif] text-sm font-semibold text-cream">{service.title}</span>
       </div>
     </Link>
   )
@@ -69,25 +78,33 @@ function ServiceCard({ service }: { service: ServiceData }) {
 
 export default function Servicos() {
   return (
-    <section id="servicos" className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16">
-      <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-12 sm:px-10 sm:py-16 md:p-16">
-        <Eyebrow align="center">Nossos Serviços</Eyebrow>
+    <section id="servicos" className="relative px-4 py-8 sm:px-6 sm:py-12">
+      <Foliage
+        mirrored
+        className="absolute -left-28 top-8 hidden h-[34rem] w-[21rem] opacity-[.13] md:block lg:w-[24rem] lg:opacity-[.19]"
+      />
+      <div className="absolute right-[7%] top-[25%] h-72 w-72 rounded-full bg-[#55704f]/10 blur-[100px]" aria-hidden="true" />
+      <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-10 sm:px-9 sm:py-12 md:p-12">
+        <div className="mb-8 text-center">
+          <h2 className="section-heading">Nossos Serviços</h2>
+          <LeafMark className="mt-3 justify-center [&>span]:hidden" />
+        </div>
 
-        <div className="grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-14 items-start">
+        <div className="grid items-center gap-10 lg:grid-cols-[280px_1fr] lg:gap-10">
           <div className="text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl leading-tight mb-4">
+            <h3 className="mb-5 text-[clamp(2rem,3.5vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.02em]">
               Soluções criativas para marcas que querem <span className="italic text-accent">se destacar</span>.
-            </h2>
-            <p className="text-body mb-8">
+            </h3>
+            <p className="mb-8 text-sm text-body/88 sm:text-base">
               Estratégia, criatividade e produção em um só lugar para transformar ideias em resultados.
             </p>
-            <Button href="#contato" variant="outline" className="px-7 py-3.5 text-sm sm:text-base">
-              Fale comigo
+            <Button href="#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
+              Solicite um orçamento
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
-            {services.map((service) => (
+          <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {displayedServices.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
           </div>

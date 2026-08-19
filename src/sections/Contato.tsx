@@ -1,39 +1,22 @@
 import { useState, type FormEvent } from 'react'
-import { Button, Eyebrow, IconCircle } from '../components/UI'
+import Foliage from '../components/Foliage'
+import { Button, IconCircle } from '../components/UI'
 
-// Ícone oficial do WhatsApp, em verde de marca — igual ao usado no app.
+// Versão monocromática do símbolo oficial para acompanhar a paleta dourada.
 function WhatsAppIcon() {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
-      <circle cx="22" cy="22" r="22" fill="#25D366" />
-      <path
-        fill="#fff"
-        d="M22 10.5c-6.35 0-11.5 5.15-11.5 11.5 0 2.02.53 3.97 1.53 5.69L10.5 33.5l5.98-1.57a11.44 11.44 0 0 0 5.52 1.41h.01c6.35 0 11.5-5.15 11.5-11.5S28.35 10.5 22 10.5Zm0 21.03h-.01a9.52 9.52 0 0 1-4.85-1.33l-.35-.21-3.6.95.96-3.5-.23-.36a9.53 9.53 0 0 1-1.46-5.08c0-5.27 4.29-9.55 9.56-9.55 2.55 0 4.95 1 6.76 2.8a9.5 9.5 0 0 1 2.79 6.76c0 5.27-4.29 9.52-9.57 9.52Z"
-      />
-      <path
-        fill="#fff"
-        d="M27.7 25.09c-.31-.16-1.83-.9-2.11-1.01-.28-.1-.49-.16-.7.16-.21.31-.8 1-.98 1.21-.18.21-.36.24-.67.08-.31-.16-1.32-.49-2.51-1.55-.93-.83-1.55-1.85-1.74-2.16-.18-.31-.02-.48.14-.63.14-.14.31-.36.47-.55.15-.18.2-.31.31-.52.1-.21.05-.39-.03-.55-.08-.16-.7-1.69-.96-2.31-.25-.61-.51-.52-.7-.53-.18-.01-.39-.01-.6-.01a1.15 1.15 0 0 0-.83.39c-.28.31-1.09 1.06-1.09 2.59s1.12 3.01 1.27 3.22c.16.21 2.2 3.36 5.33 4.71.74.32 1.32.51 1.78.66.75.24 1.43.2 1.96.12.6-.09 1.83-.75 2.09-1.47.26-.73.26-1.35.18-1.48-.08-.13-.28-.21-.6-.36Z"
-      />
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.966-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.981.999-3.648a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.81 9.81 0 0 1 6.986 2.894 9.825 9.825 0 0 1 2.9 6.988c-.003 5.45-4.437 9.884-9.884 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
     </svg>
   )
 }
 
-// Ícone oficial do Instagram, com o gradiente de marca — mesmo tratamento do WhatsApp.
 function InstagramIcon() {
   return (
-    <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
-      <defs>
-        <radialGradient id="ig-gradient" cx="30%" cy="107%" r="150%">
-          <stop offset="0%" stopColor="#FFDD55" />
-          <stop offset="10%" stopColor="#FFDD55" />
-          <stop offset="50%" stopColor="#FF543E" />
-          <stop offset="100%" stopColor="#C837AB" />
-        </radialGradient>
-      </defs>
-      <circle cx="22" cy="22" r="22" fill="url(#ig-gradient)" />
-      <rect x="13" y="13" width="18" height="18" rx="6" fill="none" stroke="#fff" strokeWidth={1.8} />
-      <circle cx="22" cy="22" r="5" fill="none" stroke="#fff" strokeWidth={1.8} />
-      <circle cx="27.3" cy="16.7" r="1.15" fill="#fff" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none" />
     </svg>
   )
 }
@@ -49,8 +32,6 @@ function MailIcon() {
 
 const numeroWhatsApp = '5568999582647'
 
-// `branded: true` = o ícone já vem com seu próprio círculo/gradiente de marca,
-// então dispensa o IconCircle genérico usado no e-mail.
 // O e-mail ainda não existe no projeto — fica como placeholder visível até a
 // Jessyane passar o dado real.
 const contactItems = [
@@ -58,13 +39,11 @@ const contactItems = [
     label: 'Fale comigo no WhatsApp',
     href: `https://wa.me/${numeroWhatsApp}`,
     icon: <WhatsAppIcon />,
-    branded: true,
   },
   {
     label: '@jessyanesoaresmkt',
     href: 'https://www.instagram.com/jessyanesoaresmkt/',
     icon: <InstagramIcon />,
-    branded: true,
   },
   {
     label: 'seu@email.com',
@@ -102,9 +81,9 @@ Mensagem: ${mensagem}`
   }
 
   const inputClass =
-    'w-full px-4 py-3 rounded-lg text-sm sm:text-base transition-all duration-300 border border-hairline bg-ink-elevated text-cream placeholder:text-body/60 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent'
+    'glass-field w-full rounded-lg px-4 py-3 text-sm text-cream placeholder:text-body/50 transition-all duration-300 focus:border-accent/45 focus:bg-ink/35 focus:outline-none focus:ring-1 focus:ring-accent/40'
 
-  const labelClass = 'block mb-2 font-semibold text-cream text-sm sm:text-base'
+  const labelClass = 'mb-2 block text-[.7rem] font-bold uppercase tracking-[0.12em] text-cream/78'
 
   const opcoesServicos = [
     'Gastronomia',
@@ -116,47 +95,50 @@ Mensagem: ${mensagem}`
   ]
 
   return (
-    <section id="contato" className="max-w-[1200px] mx-auto px-4 sm:px-6 py-10 sm:py-16">
-      <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-12 sm:px-10 sm:py-16 md:p-16">
-        <div className="grid lg:grid-cols-2 gap-14">
+    <section id="contato" className="relative px-4 pb-16 pt-8 sm:px-6 sm:pb-20 sm:pt-12">
+      <Foliage
+        crop="left-bottom"
+        className="absolute -left-20 bottom-[-5rem] hidden h-[35rem] w-[23rem] opacity-20 md:block lg:w-[27rem] lg:opacity-[.28]"
+      />
+      <Foliage className="absolute -right-24 -top-24 hidden h-[29rem] w-[18rem] opacity-[.11] md:block lg:w-[21rem] lg:opacity-[.16]" />
+      <div className="absolute bottom-[8%] left-[12%] h-72 w-72 rounded-full bg-accent/8 blur-[100px]" aria-hidden="true" />
+      <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-9 sm:px-10 sm:py-11">
+        <div className="grid items-center gap-12 lg:grid-cols-[.88fr_1.12fr] lg:gap-14">
           <div className="text-center lg:text-left">
-            <Eyebrow className="justify-center lg:justify-start">Fale comigo</Eyebrow>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4">Entre em Contato</h2>
-            <p className="text-body max-w-[440px] mx-auto lg:mx-0 mb-10">
+            <h2 className="mb-3 text-[clamp(2.6rem,5vw,3.8rem)] font-semibold leading-[1.05] tracking-[-0.025em]">Entre em Contato</h2>
+            <div className="mb-4 flex items-center justify-center gap-3 text-accent lg:justify-start" aria-hidden="true">
+              <span className="h-1.5 w-1.5 rotate-45 bg-accent" />
+              <span className="h-px w-16 bg-accent/25" />
+            </div>
+            <p className="mx-auto mb-9 max-w-[410px] text-sm text-body/88 sm:text-base lg:mx-0">
               Gostou do que viu? Preencha o formulário e envie uma mensagem diretamente para o
               WhatsApp.
             </p>
 
-            <div className="flex flex-col gap-5 items-center lg:items-start">
-              {contactItems.map((item) => {
-                const icon = item.branded ? item.icon : <IconCircle>{item.icon}</IconCircle>
-
-                if (item.href) {
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-4 text-cream transition-colors duration-300 hover:text-accent"
-                    >
-                      {icon}
-                      <span className="font-semibold">{item.label}</span>
-                    </a>
-                  )
-                }
-
-                return (
-                  <div key={item.label} className="flex items-center gap-4 text-cream/70">
-                    {icon}
+            <div className="flex flex-col items-center gap-4 lg:items-start">
+              {contactItems.map((item) =>
+                item.href ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 text-sm text-cream/90 transition-colors duration-300 hover:text-accent sm:text-base"
+                  >
+                    <IconCircle>{item.icon}</IconCircle>
+                    <span className="font-semibold">{item.label}</span>
+                  </a>
+                ) : (
+                  <div key={item.label} className="flex items-center gap-4 text-sm text-cream/65 sm:text-base">
+                    <IconCircle>{item.icon}</IconCircle>
                     <span className="font-semibold">{item.label}</span>
                   </div>
                 )
-              })}
+              )}
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="text-left">
+          <form onSubmit={handleSubmit} className="glass-panel-strong rounded-2xl p-5 text-left sm:p-7">
             <div className="mb-5 sm:mb-6">
               <label htmlFor="nome" className={labelClass}>Nome:</label>
               <input
@@ -213,8 +195,8 @@ Mensagem: ${mensagem}`
               type="submit"
               variant="solid"
               disabled={isLoading}
-              icon={null}
-              className="w-full py-4 text-base sm:text-lg"
+              icon={<WhatsAppIcon />}
+              className="w-full !rounded-lg py-3.5 text-xs sm:text-sm [&_svg]:h-4 [&_svg]:w-4"
             >
               {isLoading ? 'Redirecionando...' : 'Enviar via WhatsApp'}
             </Button>

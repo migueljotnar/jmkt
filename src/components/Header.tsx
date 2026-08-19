@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const navLinkClass =
-  'no-underline text-cream/90 text-sm font-bold uppercase tracking-wide transition-all duration-300 border-b-2 border-transparent hover:text-accent hover:border-accent pb-1'
+  'relative pb-2 text-xs font-bold uppercase tracking-[0.14em] text-cream/80 no-underline transition-colors duration-300 before:absolute before:-bottom-[5px] before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rotate-45 before:bg-accent before:opacity-0 before:transition-opacity after:absolute after:bottom-0 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-accent after:transition-all after:duration-300 hover:text-accent hover:after:w-full focus-visible:outline-none focus-visible:text-accent'
 
 const mobileNavLinkClass =
-  'block no-underline text-cream font-bold text-lg py-3 transition-all duration-300 hover:text-accent'
+  'flex items-center justify-between border-b border-cream/8 py-4 text-lg font-bold text-cream/85 no-underline transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:text-accent'
 
 // Fica fora do Header para não ser recriado (e perder estado) a cada render.
 function NavLink({
@@ -13,29 +13,45 @@ function NavLink({
   children,
   mobile = false,
   isHomePage,
+  active = false,
   onNavigate,
 }: {
   sectionId: string
   children: React.ReactNode
   mobile?: boolean
   isHomePage: boolean
+  active?: boolean
   onNavigate: () => void
 }) {
-  const linkClass = mobile ? mobileNavLinkClass : navLinkClass
+  const linkClass = `${mobile ? mobileNavLinkClass : navLinkClass} ${
+    active ? (mobile ? 'text-accent' : 'text-accent before:opacity-100 after:w-full') : ''
+  }`
   const handleClick = () => {
     if (mobile) onNavigate()
   }
 
   if (isHomePage) {
     return (
-      <a href={`#${sectionId}`} className={linkClass} onClick={handleClick}>
+      <a
+        href={`#${sectionId}`}
+        className={linkClass}
+        onClick={handleClick}
+        aria-current={active ? 'location' : undefined}
+      >
         {children}
+        {mobile && <span className="text-sm text-accent/70" aria-hidden="true">↗</span>}
       </a>
     )
   }
   return (
-    <Link to={`/#${sectionId}`} className={linkClass} onClick={handleClick}>
+    <Link
+      to={`/#${sectionId}`}
+      className={linkClass}
+      onClick={handleClick}
+      aria-current={active ? 'location' : undefined}
+    >
       {children}
+      {mobile && <span className="text-sm text-accent/70" aria-hidden="true">↗</span>}
     </Link>
   )
 }
@@ -43,7 +59,9 @@ function NavLink({
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('inicio')
   const location = useLocation()
+  const isHomePage = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +70,28 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (!isHomePage) return
+
+    const sections = ['inicio', 'sobre', 'servicos', 'portfolio', 'contato']
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section))
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+        if (visibleSection?.target.id) setActiveSection(visibleSection.target.id)
+      },
+      { rootMargin: '-28% 0px -58% 0px', threshold: [0, 0.1, 0.35] }
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [isHomePage])
 
   // Fecha o menu ao mudar de rota. Ajustado durante o render (em vez de um
   // useEffect) para não causar um re-render extra a cada navegação.
@@ -62,24 +102,41 @@ export default function Header() {
   }
 
   useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
+      window.addEventListener('keydown', closeOnEscape)
     } else {
       document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', closeOnEscape)
+    }
   }, [menuOpen])
 
-  const isHomePage = location.pathname === '/'
+  useEffect(() => {
+    const desktopMedia = window.matchMedia('(min-width: 768px)')
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setMenuOpen(false)
+    }
+
+    desktopMedia.addEventListener('change', closeOnDesktop)
+    return () => desktopMedia.removeEventListener('change', closeOnDesktop)
+  }, [])
+
   const closeMenu = () => setMenuOpen(false)
 
   return (
     <>
       <header
-        className={`fixed w-full top-0 z-[100] bg-ink/85 backdrop-blur-md border-b transition-shadow duration-300 ${scrolled ? 'shadow-[0_10px_30px_rgba(0,0,0,0.25)] border-hairline' : 'border-transparent'
+        className={`fixed top-0 z-[100] w-full border-b transition-all duration-500 ${scrolled ? 'glass-nav' : 'border-transparent bg-gradient-to-b from-ink/70 via-ink/20 to-transparent'
           }`}
       >
-        <nav className="flex justify-between items-center max-w-[1200px] mx-auto px-4 sm:px-8 py-3">
+        <nav className={`mx-auto flex max-w-[1320px] items-center justify-between px-5 sm:px-8 ${scrolled ? 'py-3' : 'py-4'} transition-all duration-500`}>
           <Link
             to="/"
             onClick={(e) => {
@@ -91,10 +148,13 @@ export default function Header() {
             }}
             aria-label="Logo Jessyane Soares - Ir para início"
           >
-            <img
-              src="/logo-white.png"
-              alt="Logo Jessyane Soares"
-              className="h-[36px] sm:h-[44px]"
+            <span
+              className="block h-10 w-10 sm:h-12 sm:w-12 bg-accent"
+              aria-hidden="true"
+              style={{
+                WebkitMask: "url('/logo-white.png') center / contain no-repeat",
+                mask: "url('/logo-white.png') center / contain no-repeat",
+              }}
             />
           </Link>
 
@@ -103,6 +163,7 @@ export default function Header() {
             className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] bg-transparent border-none cursor-pointer z-[110]"
             aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={menuOpen}
+            aria-controls="menu-principal-mobile"
           >
             <span
               className={`block w-6 h-[2px] bg-cream rounded transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''
@@ -118,40 +179,47 @@ export default function Header() {
             />
           </button>
 
-          <ul className="hidden md:flex list-none gap-8">
+          <ul className="hidden md:flex list-none gap-9">
             <li>
-              <NavLink sectionId="inicio" isHomePage={isHomePage} onNavigate={closeMenu}>Início</NavLink>
+              <NavLink sectionId="inicio" isHomePage={isHomePage} active={isHomePage && activeSection === 'inicio'} onNavigate={closeMenu}>Início</NavLink>
             </li>
             <li>
-              <NavLink sectionId="sobre" isHomePage={isHomePage} onNavigate={closeMenu}>Sobre</NavLink>
+              <NavLink sectionId="sobre" isHomePage={isHomePage} active={isHomePage && activeSection === 'sobre'} onNavigate={closeMenu}>Sobre</NavLink>
             </li>
             <li>
-              <NavLink sectionId="servicos" isHomePage={isHomePage} onNavigate={closeMenu}>Nossos Serviços</NavLink>
+              <NavLink sectionId="servicos" isHomePage={isHomePage} active={isHomePage && activeSection === 'servicos'} onNavigate={closeMenu}>Nossos Serviços</NavLink>
             </li>
             <li>
-              <NavLink sectionId="contato" isHomePage={isHomePage} onNavigate={closeMenu}>Contato</NavLink>
+              <NavLink sectionId="portfolio" isHomePage={isHomePage} active={isHomePage && activeSection === 'portfolio'} onNavigate={closeMenu}>Portfólio</NavLink>
+            </li>
+            <li>
+              <NavLink sectionId="contato" isHomePage={isHomePage} active={isHomePage && activeSection === 'contato'} onNavigate={closeMenu}>Contato</NavLink>
             </li>
           </ul>
         </nav>
       </header>
 
       <div
-        className={`fixed inset-0 bg-black/60 z-[98] transition-opacity duration-300 md:hidden ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-[98] bg-black/45 backdrop-blur-sm transition-opacity duration-300 md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           }`}
         onClick={() => setMenuOpen(false)}
       />
 
       <div
-        className={`fixed top-0 right-0 h-full w-[280px] bg-ink-soft z-[99] shadow-[-5px_0_15px_rgba(0,0,0,0.3)] border-l border-hairline
+        id="menu-principal-mobile"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen ? true : undefined}
+        className={`glass-nav fixed right-0 top-0 z-[99] h-full w-[min(84vw,320px)] border-l
           transition-transform duration-300 ease-in-out md:hidden
           ${menuOpen ? 'translate-x-0' : 'translate-x-full'}
         `}
       >
-        <nav className="flex flex-col pt-20 px-8">
-          <NavLink sectionId="inicio" mobile isHomePage={isHomePage} onNavigate={closeMenu}>Início</NavLink>
-          <NavLink sectionId="sobre" mobile isHomePage={isHomePage} onNavigate={closeMenu}>Sobre</NavLink>
-          <NavLink sectionId="servicos" mobile isHomePage={isHomePage} onNavigate={closeMenu}>Nossos Serviços</NavLink>
-          <NavLink sectionId="contato" mobile isHomePage={isHomePage} onNavigate={closeMenu}>Contato</NavLink>
+        <nav className="flex flex-col px-8 pt-24">
+          <NavLink sectionId="inicio" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'inicio'} onNavigate={closeMenu}>Início</NavLink>
+          <NavLink sectionId="sobre" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'sobre'} onNavigate={closeMenu}>Sobre</NavLink>
+          <NavLink sectionId="servicos" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'servicos'} onNavigate={closeMenu}>Nossos Serviços</NavLink>
+          <NavLink sectionId="portfolio" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'portfolio'} onNavigate={closeMenu}>Portfólio</NavLink>
+          <NavLink sectionId="contato" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'contato'} onNavigate={closeMenu}>Contato</NavLink>
         </nav>
       </div>
     </>

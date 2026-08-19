@@ -9,15 +9,17 @@ function ScrollHandler() {
   useEffect(() => {
     if (hash) {
       // Delay para garantir que a página já renderizou antes de rolar
-      setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         const elemento = document.querySelector(hash)
         if (elemento) {
           elemento.scrollIntoView({ behavior: 'smooth', block: 'start' })
         }
       }, 100)
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+
+      return () => window.clearTimeout(timeoutId)
     }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [pathname, hash])
  
   return null

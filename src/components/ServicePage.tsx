@@ -1,6 +1,7 @@
 import type { ServiceData } from '../data/services'
 import Header from './Header'
 import Footer from './Footer'
+import Foliage from './Foliage'
 import { Button, Eyebrow } from './UI'
 
 interface ServicePageProps {
@@ -11,40 +12,47 @@ interface ServicePageProps {
 // uma passa seus próprios dados e reaproveita o mesmo layout e estilo da home.
 export default function ServicePage({ service }: ServicePageProps) {
   return (
-    <div className="bg-ink">
+    <div className="relative min-h-screen overflow-hidden bg-transparent">
       <Header />
 
-      <main>
-        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-14 pb-8 sm:pt-20 sm:pb-10 text-center">
+      <main className="relative">
+        <Foliage className="absolute -right-24 top-20 hidden h-[37rem] w-[22rem] opacity-20 lg:block xl:w-[25rem] xl:opacity-25" />
+        <div className="absolute left-[12%] top-48 h-80 w-80 rounded-full bg-accent/8 blur-[110px]" aria-hidden="true" />
+
+        <section className="mx-auto max-w-[1120px] px-4 pb-8 pt-32 text-center sm:px-6 sm:pb-10 sm:pt-36">
           <Eyebrow align="center">Nossos Serviços</Eyebrow>
-          <h1 className="text-4xl sm:text-5xl mb-4">{service.title}</h1>
-          <p className="text-body max-w-[560px] mx-auto">{service.description}</p>
+          <h1 className="mb-4 text-[clamp(2.8rem,6vw,4.5rem)] font-semibold leading-none tracking-[-0.03em]">{service.title}</h1>
+          <p className="mx-auto max-w-[560px] text-sm text-body/88 sm:text-base">{service.description}</p>
         </section>
 
-        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <div className="bg-ink-soft border border-hairline rounded-3xl px-6 py-10 sm:px-10 sm:py-14">
-            <h2 className="text-2xl sm:text-3xl mb-6 sm:mb-8 text-center">Galeria de Fotos</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-5 sm:gap-6">
+        <section className="relative z-10 mx-auto max-w-[1120px] px-4 py-6 sm:px-6 sm:py-10">
+          <div className="glass-panel rounded-[1.65rem] px-6 py-9 sm:px-10 sm:py-12">
+            <h2 className="section-heading mb-7 text-center sm:mb-9">Galeria de Fotos</h2>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] sm:gap-6">
               {service.gallery.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-ink-elevated rounded-2xl overflow-hidden border border-hairline text-center"
+                  className="glass-card group overflow-hidden rounded-2xl text-center transition-all duration-500 hover:-translate-y-1 hover:border-accent/30"
                 >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-[180px] sm:h-[200px] object-cover"
-                  />
-                  <p className="p-4 mb-0 text-body">{item.description}</p>
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                      className="h-[190px] w-full object-cover opacity-95 transition-all duration-500 group-hover:scale-105 group-hover:opacity-100 sm:h-[220px]"
+                    />
+                    <div className="image-glass-overlay absolute inset-0" aria-hidden="true" />
+                  </div>
+                  <p className="mb-0 border-t border-accent/10 bg-ink/22 p-4 text-sm text-body/82 backdrop-blur-xl">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="max-w-[1200px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-          <div className="text-center mb-8">
-            <Button to="/#contato" variant="outline" className="px-7 py-3.5 text-sm sm:text-base">
+        <section className="mx-auto max-w-[1120px] px-4 py-8 sm:px-6 sm:py-10">
+          <div className="mb-4 text-center">
+            <Button to="/#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
               Entre em contato
             </Button>
           </div>

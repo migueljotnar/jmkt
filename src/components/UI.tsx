@@ -4,6 +4,19 @@ function Diamond() {
   return <span className="block h-1.5 w-1.5 rotate-45 bg-accent" aria-hidden="true" />
 }
 
+export function LeafMark({ className = '' }: { className?: string }) {
+  return (
+    <span className={`inline-flex items-center gap-3 text-accent ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.35} className="h-5 w-5">
+        <path d="M12 21V10" strokeLinecap="round" />
+        <path d="M12 10c0-4 3-7 7-7 0 4-3 7-7 7Z" strokeLinejoin="round" />
+        <path d="M12 14c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6Z" strokeLinejoin="round" />
+      </svg>
+      <span className="h-px w-14 bg-accent/25" />
+    </span>
+  )
+}
+
 export function Eyebrow({
   children,
   align = 'left',
@@ -20,6 +33,7 @@ export function Eyebrow({
     >
       <Diamond />
       <span>{children}</span>
+      <span className="h-px w-14 sm:w-20 bg-accent/20" aria-hidden="true" />
     </div>
   )
 }
@@ -36,7 +50,8 @@ export function IconCircle({
   const sizeClasses = size === 'sm' ? 'h-8 w-8' : 'h-11 w-11'
   return (
     <span
-      className={`inline-flex ${sizeClasses} shrink-0 items-center justify-center rounded-full border border-hairline bg-ink-elevated text-accent ${className}`}
+      className={`glass-pill inline-flex ${sizeClasses} shrink-0 items-center justify-center rounded-full text-accent [&>svg]:h-[46%] [&>svg]:w-[46%] ${className}`}
+      aria-hidden="true"
     >
       {children}
     </span>
@@ -77,13 +92,13 @@ interface ButtonProps {
 }
 
 const buttonBase =
-  'group inline-flex items-center justify-center gap-2 rounded-full font-bold tracking-wide transition-all duration-300 no-underline disabled:opacity-60 disabled:cursor-not-allowed'
+  'group inline-flex items-center justify-center gap-2 rounded-full font-bold uppercase tracking-[0.1em] transition-all duration-300 no-underline outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent/55 focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-60'
 
 const buttonVariants: Record<'outline' | 'solid', string> = {
   outline:
-    'border border-hairline text-cream hover:border-accent hover:text-accent',
+    'glass-pill text-cream hover:border-accent/55 hover:bg-accent/8 hover:text-accent',
   solid:
-    'bg-accent-strong text-ink hover:bg-accent',
+    'border border-accent/45 bg-accent-strong/90 text-ink shadow-[0_12px_30px_rgba(0,0,0,.18)] backdrop-blur-md hover:bg-accent',
 }
 
 // Botão "pill" reutilizável. Vira <Link> (rota interna), <a> (âncora/link externo)
