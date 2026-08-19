@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react'
+import { useLocation } from 'react-router-dom'
 import Foliage from '../components/Foliage'
 import { Button, IconCircle } from '../components/UI'
 
@@ -21,19 +22,17 @@ function InstagramIcon() {
   )
 }
 
-function MailIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="m4 7 8 6 8-6" />
-    </svg>
-  )
-}
-
 const numeroWhatsApp = '5568999582647'
 
-// O e-mail ainda não existe no projeto — fica como placeholder visível até a
-// Jessyane passar o dado real.
+const slugToNameMap: Record<string, string> = {
+  gastronomia: 'Gastronomia',
+  'gestao-de-perfil': 'Gestão de Perfil',
+  filmmaker: 'Filmmaker',
+  videomaker: 'Videomaker',
+  'fotos-pessoais': 'Fotos Pessoais',
+  'criacao-de-sites': 'Criação de Sites',
+}
+
 const contactItems = [
   {
     label: 'Fale comigo no WhatsApp',
@@ -45,57 +44,59 @@ const contactItems = [
     href: 'https://www.instagram.com/jessyanesoaresmkt/',
     icon: <InstagramIcon />,
   },
-  {
-    label: 'seu@email.com',
-    href: undefined,
-    icon: <MailIcon />,
-  },
+]
+
+const inputClass =
+  'glass-field w-full rounded-lg px-4 py-3 text-sm text-cream placeholder:text-body/50 transition-all duration-300 focus:border-accent/45 focus:bg-ink/35 focus:outline-none focus:ring-1 focus:ring-accent/40'
+
+const labelClass = 'mb-2 block text-[.7rem] font-bold uppercase tracking-[0.12em] text-cream/78'
+
+const opcoesServicos = [
+  'Gastronomia',
+  'Gestão de Perfil',
+  'Filmmaker',
+  'Videomaker',
+  'Fotos Pessoais',
+  'Criação de Sites',
 ]
 
 export default function Contato() {
+  const location = useLocation()
   const [nome, setNome] = useState('')
-  const [servico, setServico] = useState('')
+  const [servico, setServico] = useState(() => {
+    const params = new URLSearchParams(location.search)
+    const serviceParam = params.get('servico')
+    return (serviceParam && slugToNameMap[serviceParam]) || ''
+  })
   const [mensagem, setMensagem] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!nome || !servico || !mensagem) {
+    if (!nome.trim() || !servico || !mensagem.trim()) {
       alert('Por favor, preencha todos os campos obrigatórios.')
       return
     }
 
-    const texto = `Olá! Meu nome é *${nome}*.
+    const texto = `Olá! Meu nome é *${nome.trim()}*.
 Tenho interesse no serviço: *${servico}*.
 
-Mensagem: ${mensagem}`
+Mensagem: ${mensagem.trim()}`
 
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`
 
     setIsLoading(true)
-    window.open(url, '_blank')
+    window.open(url, '_blank', 'noopener,noreferrer')
 
     // Reabilita o botão depois de dar tempo do WhatsApp abrir
-    setTimeout(() => setIsLoading(false), 2000)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
   }
 
-  const inputClass =
-    'glass-field w-full rounded-lg px-4 py-3 text-sm text-cream placeholder:text-body/50 transition-all duration-300 focus:border-accent/45 focus:bg-ink/35 focus:outline-none focus:ring-1 focus:ring-accent/40'
-
-  const labelClass = 'mb-2 block text-[.7rem] font-bold uppercase tracking-[0.12em] text-cream/78'
-
-  const opcoesServicos = [
-    'Gastronomia',
-    'Gestão de Perfil',
-    'Filmmaker',
-    'Videomaker',
-    'Fotos Pessoais',
-    'Criação de Sites',
-  ]
-
   return (
-    <section id="contato" className="relative px-4 pb-16 pt-8 sm:px-6 sm:pb-20 sm:pt-12">
+    <section id="contato" className="relative px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
       <Foliage
         crop="left-bottom"
         className="absolute -left-20 bottom-[-5rem] hidden h-[35rem] w-[23rem] opacity-20 md:block lg:w-[27rem] lg:opacity-[.28]"
@@ -115,7 +116,7 @@ Mensagem: ${mensagem}`
               WhatsApp.
             </p>
 
-            <div className="flex flex-col items-center gap-4 lg:items-start">
+            <div className="flex flex-col items-center gap-5 lg:items-start">
               {contactItems.map((item) =>
                 item.href ? (
                   <a
@@ -123,15 +124,15 @@ Mensagem: ${mensagem}`
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 text-sm text-cream/90 transition-colors duration-300 hover:text-accent sm:text-base"
+                    className="group flex items-center gap-4 text-sm text-cream/90 transition-colors duration-300 hover:text-accent sm:text-base"
                   >
-                    <IconCircle>{item.icon}</IconCircle>
-                    <span className="font-semibold">{item.label}</span>
+                    <IconCircle size="sm" className="!h-10 !w-10 transition-transform duration-300 group-hover:scale-110">{item.icon}</IconCircle>
+                    <span className="font-medium relative top-[1px]">{item.label}</span>
                   </a>
                 ) : (
                   <div key={item.label} className="flex items-center gap-4 text-sm text-cream/65 sm:text-base">
-                    <IconCircle>{item.icon}</IconCircle>
-                    <span className="font-semibold">{item.label}</span>
+                    <IconCircle size="sm" className="!h-10 !w-10">{item.icon}</IconCircle>
+                    <span className="font-medium relative top-[1px]">{item.label}</span>
                   </div>
                 )
               )}

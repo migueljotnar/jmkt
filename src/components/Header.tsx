@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useEscapeAndScrollLock } from '../hooks/useEscapeAndScrollLock'
+
+const sectionIds = ['inicio', 'sobre', 'servicos', 'portfolio', 'contato']
 
 const navLinkClass =
-  'relative pb-2 text-xs font-bold uppercase tracking-[0.14em] text-cream/80 no-underline transition-colors duration-300 before:absolute before:-bottom-[5px] before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rotate-45 before:bg-accent before:opacity-0 before:transition-opacity after:absolute after:bottom-0 after:left-1/2 after:h-px after:w-0 after:-translate-x-1/2 after:bg-accent after:transition-all after:duration-300 hover:text-accent hover:after:w-full focus-visible:outline-none focus-visible:text-accent'
+  'relative pb-2 text-xs font-bold uppercase tracking-[0.14em] text-cream/80 no-underline transition-colors duration-300 before:absolute before:-bottom-[5px] before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rotate-45 before:bg-accent before:opacity-0 before:transition-opacity after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:text-accent hover:after:scale-x-100 focus-visible:outline-none focus-visible:text-accent'
 
 const mobileNavLinkClass =
   'flex items-center justify-between border-b border-cream/8 py-4 text-lg font-bold text-cream/85 no-underline transition-colors duration-300 hover:text-accent focus-visible:outline-none focus-visible:text-accent'
@@ -24,10 +27,20 @@ function NavLink({
   onNavigate: () => void
 }) {
   const linkClass = `${mobile ? mobileNavLinkClass : navLinkClass} ${
-    active ? (mobile ? 'text-accent' : 'text-accent before:opacity-100 after:w-full') : ''
+    active ? (mobile ? 'text-accent' : 'text-accent before:opacity-100 after:scale-x-100') : ''
   }`
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (mobile) onNavigate()
+
+    if (isHomePage) {
+      // Garante scroll suave mesmo que o hash já esteja na URL
+      const target = document.getElementById(sectionId)
+      if (target) {
+        e.preventDefault()
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        window.history.pushState(null, '', `#${sectionId}`)
+      }
+    }
   }
 
   if (isHomePage) {
@@ -47,7 +60,9 @@ function NavLink({
     <Link
       to={`/#${sectionId}`}
       className={linkClass}
-      onClick={handleClick}
+      onClick={() => {
+        if (mobile) onNavigate()
+      }}
       aria-current={active ? 'location' : undefined}
     >
       {children}
@@ -63,36 +78,6 @@ export default function Header() {
   const location = useLocation()
   const isHomePage = location.pathname === '/'
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    if (!isHomePage) return
-
-    const sections = ['inicio', 'sobre', 'servicos', 'portfolio', 'contato']
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section))
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSection = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-
-        if (visibleSection?.target.id) setActiveSection(visibleSection.target.id)
-      },
-      { rootMargin: '-28% 0px -58% 0px', threshold: [0, 0.1, 0.35] }
-    )
-
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
-  }, [isHomePage])
-
   // Fecha o menu ao mudar de rota. Ajustado durante o render (em vez de um
   // useEffect) para não causar um re-render extra a cada navegação.
   const [lastLocationKey, setLastLocationKey] = useState(location.key)
@@ -102,21 +87,53 @@ export default function Header() {
   }
 
   useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+    const updateFromScroll = () => {
+      const scrollY = window.scrollY
+      setScrolled(scrollY > 40)
+
+      if (!isHomePage) return
+
+      if (scrollY < 120) {
+        setActiveSection('inicio')
+        return
+      }
+
+      // Se o usuário rolou até o final da página, ativa 'contato'
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 50) {
+        setActiveSection('contato')
+        return
+      }
+
+      const scrollLine = scrollY + 200 // linha de visão logo abaixo do header
+
+      let currentSection = 'inicio'
+      for (const id of sectionIds) {
+        const element = document.getElementById(id)
+        if (element && scrollLine >= element.offsetTop) {
+          currentSection = id
+        }
+      }
+
+      setActiveSection(currentSection)
     }
 
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', closeOnEscape)
-    } else {
-      document.body.style.overflow = ''
+    // Agrupa leituras de scroll no próximo frame para evitar recalcular a
+    // seção ativa várias vezes durante um mesmo repaint.
+    let frameId = 0
+    const handleScroll = () => {
+      cancelAnimationFrame(frameId)
+      frameId = requestAnimationFrame(updateFromScroll)
     }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    updateFromScroll()
     return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', closeOnEscape)
+      cancelAnimationFrame(frameId)
+      window.removeEventListener('scroll', handleScroll)
     }
-  }, [menuOpen])
+  }, [isHomePage])
+
+  useEscapeAndScrollLock(menuOpen, () => setMenuOpen(false))
 
   useEffect(() => {
     const desktopMedia = window.matchMedia('(min-width: 768px)')
@@ -133,8 +150,11 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 z-[100] w-full border-b transition-all duration-500 ${scrolled ? 'glass-nav' : 'border-transparent bg-gradient-to-b from-ink/70 via-ink/20 to-transparent'
-          }`}
+        className={`fixed top-0 z-[100] w-full transition-all duration-500 ${
+          scrolled
+            ? 'glass-nav border-b'
+            : 'border-b-0 bg-gradient-to-b from-ink/85 via-ink/25 to-transparent'
+        }`}
       >
         <nav className={`mx-auto flex max-w-[1320px] items-center justify-between px-5 sm:px-8 ${scrolled ? 'py-3' : 'py-4'} transition-all duration-500`}>
           <Link

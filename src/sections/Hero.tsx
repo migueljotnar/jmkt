@@ -3,25 +3,22 @@ import { Button, Eyebrow } from '../components/UI'
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-[#151310] lg:h-[min(820px,100svh)] lg:min-h-[680px]">
-      <div className="relative h-[300px] pt-16 sm:h-[380px] lg:absolute lg:inset-0 lg:h-full lg:pt-0">
+    <section id="inicio" className="relative overflow-hidden bg-[#151310] lg:h-[min(840px,100svh)] lg:min-h-[700px]">
+      <div className="relative h-[360px] pt-20 sm:h-[450px] sm:pt-24 lg:absolute lg:inset-0 lg:h-full lg:pt-0">
         <img
           src="/Imagens/Index/Background-inicio-neutro.png"
           alt="Jessyane Soares ao lado de uma xícara de café"
           fetchPriority="high"
-          className="h-full w-full object-cover object-[70%_center] brightness-[1.01] contrast-[1.02] saturate-[1] lg:object-center"
+          className="h-full w-full object-cover object-[75%_top] brightness-[1.01] contrast-[1.02] saturate-[1] lg:object-[68%_top] xl:object-[70%_top]"
         />
         <div className="absolute inset-0 bg-black/5" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#151310] via-[#151310]/50 to-transparent lg:hidden" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink via-ink/50 to-transparent lg:hidden" />
       </div>
 
-      <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,.12)_100%)] lg:block" />
-      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(8,7,6,.82)_0%,rgba(12,11,10,.56)_40%,rgba(10,9,8,.08)_68%,transparent_100%)] lg:block" />
-      {/* Escurece o rodapé até o tom do body: a seção Sobre sobe por cima (-mt-20)
-          com um painel de vidro borrado, e sem isso o backdrop-filter "esfumaça"
-          a transição abrupta entre a foto clara e o fundo escuro, criando uma
-          mancha visível bem no topo do card. */}
-      <div className="absolute inset-x-0 bottom-0 hidden h-56 bg-gradient-to-t from-ink from-15% via-ink/95 via-45% to-transparent lg:block" />
+      <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_center,transparent_60%,rgba(0,0,0,.15)_100%)] lg:block" />
+      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(5,15,10,.55)_0%,rgba(5,15,10,.25)_35%,transparent_65%)] lg:block" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-32 bg-gradient-to-t from-ink via-ink/40 to-transparent lg:block" />
+
       <Foliage
         crop="left-bottom"
         mirrored

@@ -78,7 +78,7 @@ function ServiceCard({ service }: { service: ServiceData }) {
 
 export default function Servicos() {
   return (
-    <section id="servicos" className="relative px-4 py-8 sm:px-6 sm:py-12">
+    <section id="servicos" className="relative px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
       <Foliage
         mirrored
         className="absolute -left-28 top-8 hidden h-[34rem] w-[21rem] opacity-[.13] md:block lg:w-[24rem] lg:opacity-[.19]"
@@ -99,7 +99,7 @@ export default function Servicos() {
               Estratégia, criatividade e produção em um só lugar para transformar ideias em resultados.
             </p>
             <Button href="#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
-              Solicite um orçamento
+              Ver todos os serviços
             </Button>
           </div>
 

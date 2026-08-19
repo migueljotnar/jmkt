@@ -27,7 +27,7 @@ function BotanicalSeal() {
 
 export default function Sobre() {
   return (
-    <section id="sobre" className="relative z-20 -mt-8 px-4 pb-10 sm:px-6 sm:pb-14 md:-mt-20">
+    <section id="sobre" className="relative z-20 px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
       <Foliage className="absolute -right-24 -top-28 hidden h-[36rem] w-[21rem] opacity-20 md:block lg:w-[24rem] lg:opacity-[.26]" />
       <div className="absolute left-[8%] top-[20%] h-72 w-72 rounded-full bg-accent/8 blur-[90px]" aria-hidden="true" />
       <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-10 sm:px-10 sm:py-12 md:p-12 lg:p-14">
@@ -39,9 +39,8 @@ export default function Sobre() {
                   src="/Imagens/Index/Foto-sobre.jpeg"
                   alt="Jessyane Soares"
                   loading="lazy"
-                  className="h-[390px] w-full object-cover object-top brightness-[.82] saturate-[.88] shadow-[0_20px_50px_rgba(0,0,0,.22)] sm:h-[480px] md:h-[500px]"
+                  className="h-[390px] w-full object-cover object-top shadow-[0_20px_50px_rgba(0,0,0,.22)] sm:h-[480px] md:h-[500px]"
                 />
-                <div className="absolute inset-0 bg-[#0a2a1b]/32 mix-blend-multiply" aria-hidden="true" />
               </div>
             </div>
             <BotanicalSeal />
@@ -65,7 +64,7 @@ export default function Sobre() {
             </p>
             <p className="mb-8 font-['Playfair_Display',serif] text-lg text-accent">Vamos criar algo incrível juntos?</p>
             <Button href="#servicos" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
-              Conheça meus serviços
+              Conheça mais sobre mim
             </Button>
           </div>
         </div>
