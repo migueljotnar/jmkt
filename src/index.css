@@ -172,6 +172,54 @@
       rgba(20, 58, 39, 0.08);
   }
 
+  .about-portrait {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: 0.9rem;
+    background: #10271b;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  }
+
+  .about-portrait__image {
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: auto;
+  }
+
+  .about-portrait__glass-contour {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        125deg,
+        rgba(255, 255, 255, 0.24),
+        rgba(255, 255, 255, 0.035) 28%,
+        rgba(183, 173, 105, 0.13) 62%,
+        rgba(220, 237, 226, 0.16) 82%,
+        rgba(255, 255, 255, 0.06)
+      ),
+      rgba(41, 82, 59, 0.07);
+    -webkit-mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.png');
+    mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.png');
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    backdrop-filter: blur(12px) saturate(138%) brightness(1.08);
+    -webkit-backdrop-filter: blur(12px) saturate(138%) brightness(1.08);
+    filter:
+      blur(0.45px)
+      drop-shadow(0 0 2px rgba(255, 255, 255, 0.36))
+      drop-shadow(0 0 6px rgba(205, 224, 211, 0.2))
+      drop-shadow(0 7px 12px rgba(0, 0, 0, 0.12));
+  }
+
   .section-heading {
     font-size: clamp(1.45rem, 2.4vw, 2rem);
     letter-spacing: 0.055em;
@@ -198,6 +246,10 @@
 
     .glass-field {
       background-color: rgba(5, 25, 16, 0.92);
+    }
+
+    .about-portrait__glass-contour {
+      background: rgba(220, 232, 222, 0.3);
     }
   }
 }
@@ -227,5 +279,10 @@
   .glass-card {
     backdrop-filter: blur(14px) saturate(108%);
     -webkit-backdrop-filter: blur(14px) saturate(108%);
+  }
+
+  .about-portrait__glass-contour {
+    backdrop-filter: blur(8px) saturate(130%) brightness(1.06);
+    -webkit-backdrop-filter: blur(8px) saturate(130%) brightness(1.06);
   }
 }

@@ -4,7 +4,7 @@ import { Button, Eyebrow, LeafMark } from '../components/UI'
 function BotanicalSeal() {
   return (
     <div
-      className="glass-pill absolute left-1 top-[58%] flex h-24 w-24 items-center justify-center rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.3)] sm:-left-9 sm:h-28 sm:w-28"
+      className="glass-pill absolute -left-6 top-[62%] flex h-20 w-20 items-center justify-center rounded-full shadow-[0_12px_35px_rgba(0,0,0,0.3)] sm:-left-9 sm:top-[58%] sm:h-28 sm:w-28"
       style={{ backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
     >
       <svg viewBox="0 0 120 120" className="h-full w-full text-accent" aria-hidden="true">
@@ -34,13 +34,16 @@ export default function Sobre() {
         <div className="flex flex-col items-center gap-14 lg:flex-row lg:gap-20">
           <div className="relative w-full max-w-[390px] flex-shrink-0">
             <div className="glass-card rounded-[1.2rem] p-2">
-              <div className="relative overflow-hidden rounded-[.9rem]">
+              <div className="about-portrait">
                 <img
-                  src="/Imagens/Index/Foto-sobre.jpeg"
+                  src="/Imagens/Index/Foto-sobre-recorte-v3.png"
                   alt="Jessyane Soares"
                   loading="lazy"
-                  className="h-[390px] w-full object-cover object-top shadow-[0_20px_50px_rgba(0,0,0,.22)] sm:h-[480px] md:h-[500px]"
+                  width={1023}
+                  height={1537}
+                  className="about-portrait__image"
                 />
+                <span className="about-portrait__glass-contour" aria-hidden="true" />
               </div>
             </div>
             <BotanicalSeal />

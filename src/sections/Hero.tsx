@@ -3,21 +3,21 @@ import { Button, Eyebrow } from '../components/UI'
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-[#151310] lg:h-[min(840px,100svh)] lg:min-h-[700px]">
+    <section id="inicio" className="relative overflow-hidden bg-ink lg:h-[min(840px,100svh)] lg:min-h-[700px]">
       <div className="relative h-[360px] pt-20 sm:h-[450px] sm:pt-24 lg:absolute lg:inset-0 lg:h-full lg:pt-0">
         <img
-          src="/Imagens/Index/Background-inicio-neutro.png"
+          src="/Imagens/Index/Background-inicio-verde.png"
           alt="Jessyane Soares ao lado de uma xícara de café"
           fetchPriority="high"
           className="h-full w-full object-cover object-[75%_top] brightness-[1.01] contrast-[1.02] saturate-[1] lg:object-[68%_top] xl:object-[70%_top]"
         />
         <div className="absolute inset-0 bg-black/5" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink via-ink/50 to-transparent lg:hidden" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-ink via-ink/60 to-transparent lg:hidden" />
       </div>
 
       <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_center,transparent_60%,rgba(0,0,0,.15)_100%)] lg:block" />
-      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(5,15,10,.55)_0%,rgba(5,15,10,.25)_35%,transparent_65%)] lg:block" />
-      <div className="absolute inset-x-0 bottom-0 hidden h-32 bg-gradient-to-t from-ink via-ink/40 to-transparent lg:block" />
+      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(5,15,10,.48)_0%,rgba(5,15,10,.22)_35%,transparent_65%)] lg:block" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-32 bg-gradient-to-t from-ink via-ink/55 to-transparent lg:block" />
 
       <Foliage
         crop="left-bottom"
