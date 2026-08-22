@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>🎬 Jessyane Soares | Filmmaker & Videomaker</h1>
-  <p><strong>Portfólio Profissional de Produção Audiovisual</strong></p>
+  <h1>🎬 Arquitetura e Desenvolvimento: Portfólio Audiovisual</h1>
+  <p><strong>Visão Técnica e Decisões de Engenharia do Projeto "Jessyane Soares"</strong></p>
 </div>
 
 <p align="center">
@@ -12,82 +12,55 @@
 
 <hr />
 
-## 📖 Sobre o Projeto
+## 🎯 Objetivo do Repositório
 
-Este projeto é o portfólio oficial de **Jessyane Soares**, uma profissional especializada em *Filmmaking* e *Videomaking*. O objetivo desta aplicação web é apresentar de forma elegante, moderna e performática os seus trabalhos, serviços e formas de contato.
+Este repositório tem como finalidade principal a **demonstração técnica** da arquitetura, das escolhas de stack e das práticas de desenvolvimento adotadas na construção desta aplicação web. Ele serve como um *showcase* para avaliação por empresas e recrutadores das habilidades de engenharia de software e design de interfaces implementadas.
 
-A interface foi desenhada para destacar o conteúdo audiovisual, utilizando um design limpo e responsivo, focado na experiência do usuário.
+> **Nota:** Este projeto não foi concebido para ser um template de código aberto ou para ser rodado localmente por terceiros, mas sim como um documento vivo das capacidades técnicas do desenvolvedor(a).
 
-## ✨ Principais Funcionalidades
+## 🏗️ Decisões Arquiteturais e Stack Tecnológica
 
-- **Apresentação de Portfólio:** Galeria interativa com os principais projetos e vídeos.
-- **Detalhes de Serviços:** Informações claras sobre os serviços prestados e especialidades.
-- **Design Responsivo:** Experiência otimizada para desktops, tablets e smartphones.
-- **Performance:** Carregamento rápido e transições suaves, garantido pelas tecnologias modernas utilizadas.
+A aplicação foi desenvolvida sob o paradigma de *Single Page Application* (SPA), focando em alta performance de renderização, forte tipagem estática e manutenibilidade a longo prazo.
 
-## 🛠️ Tecnologias Utilizadas
+### Core Stack
+- **[React](https://react.dev/):** Utilizado pela sua robustez na componentização e gestão do DOM virtual. A escolha recai sobre o React pela vasta adoção em mercado e ecossistema maduro, permitindo criar interfaces interativas e reativas.
+- **[TypeScript](https://www.typescriptlang.org/):** Adotado estritamente em todo o projeto. Tipar o código estaticamente mitiga erros em tempo de execução, melhora a inferência do código no editor e documenta implicitamente as interfaces e contratos de dados.
+- **[Vite](https://vitejs.dev/):** Ferramenta de *build* moderna escolhida em detrimento do Webpack pelo seu tempo de inicialização a frio quase instantâneo (graças ao HMR via ES modules nativos do navegador) e otimização agressiva de *bundles* em produção via Rollup.
 
-O projeto foi construído com as melhores e mais modernas tecnologias do ecossistema front-end:
+### Estilização e UI
+- **[Tailwind CSS](https://tailwindcss.com/):** A abordagem *utility-first* foi escolhida para acelerar o desenvolvimento da interface e promover a criação de um design system consistente. Essa escolha garante um bundle CSS final diminuto (apenas as classes usadas vão para produção).
 
-- **[React](https://react.dev/):** Biblioteca JavaScript para construção de interfaces de usuário dinâmicas.
-- **[Vite](https://vitejs.dev/):** Ferramenta de build super rápida que proporciona uma experiência de desenvolvimento ágil.
-- **[TypeScript](https://www.typescriptlang.org/):** Superconjunto de JavaScript que adiciona tipagem estática, garantindo um código mais seguro e manutenível.
-- **[Tailwind CSS](https://tailwindcss.com/):** Framework CSS *utility-first* para estilização rápida, responsiva e altamente customizável.
-- **[React Router DOM](https://reactrouter.com/):** Gerenciamento de rotas e navegação na aplicação.
+### Qualidade e Consistência
+- **[ESLint](https://eslint.org/):** Configuração moderna utilizando Flat Config para garantir padrões rigorosos de qualidade, prevenindo anti-patterns e inconsistências ao longo de toda a base de código.
 
-## 🚀 Como Executar o Projeto Localmente
+## 🚀 Destaques e Pontos Fortes do Projeto
 
-Siga os passos abaixo para clonar e rodar o projeto na sua máquina:
+1. **Desenvolvimento Orientado a Componentes (Component-Driven):**
+   - O projeto adota uma arquitetura rigorosa, separando `components` (elementos reutilizáveis, puros e agnósticos como botões e cards) de `sections` (componentes maiores, de contexto específico).
+   
+2. **Separação de Preocupações (Separation of Concerns):**
+   - **Camada de Dados Isolada:** O diretório `src/data/` mantém mock de dados, retirando lógica de negócio e estruturação de dados da camada de visualização.
+   - **Custom Hooks:** Lógicas complexas e *side-effects* do React estão encapsulados em diretórios `hooks/`, garantindo componentes de UI limpos e com baixo acoplamento.
 
-### Pré-requisitos
+3. **Performance e Entrega:**
+   - O uso combinado do Vite para *builds* de produção entrega arquivos minificados e com hash (para estratégias de *cache busting*).
+   - Abordagem de componentes funcionais para diminuir o custo de memória.
 
-- [Node.js](https://nodejs.org/) (versão recomendada: 18+ ou 20+)
-- Gerenciador de pacotes (npm, yarn ou pnpm)
+4. **Experiência do Usuário (UX) & Design Responsivo:**
+   - Interface concebida *mobile-first*, adaptando-se fluidamente até telas *ultrawide*, sem comprometer a estética refinada necessária para a apresentação de um portfólio audiovisual de alto nível.
 
-### Passo a Passo
+## 📁 Estrutura de Diretórios
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/seu-usuario/jmkt.git
-   ```
-
-2. **Acesse a pasta do projeto:**
-   ```bash
-   cd jmkt
-   ```
-
-3. **Instale as dependências:**
-   ```bash
-   npm install
-   ```
-
-4. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npm run dev
-   ```
-
-5. **Acesse no navegador:**
-   Abra `http://localhost:5173` (ou a porta informada no terminal) para visualizar o projeto.
-
-## 📁 Estrutura do Projeto
-
-A estrutura de pastas foi organizada para facilitar a manutenção e escalabilidade:
+A estrutura do projeto foi desenhada visando modularidade, escalabilidade e facilidade de navegação técnica:
 
 ```text
 src/
-├── assets/       # Imagens, ícones e fontes
-├── components/   # Componentes React reutilizáveis
-├── data/         # Dados estáticos (ex: lista de serviços)
-├── hooks/        # Custom Hooks do React
-├── pages/        # Páginas principais da aplicação (rotas)
-├── sections/     # Seções específicas das páginas (ex: Header, Footer, Hero)
-├── App.tsx       # Componente raiz da aplicação
-├── main.tsx      # Ponto de entrada do React
-└── index.css     # Estilos globais e importações do Tailwind
+├── assets/       # Arquivos estáticos otimizados (mídias, ícones)
+├── components/   # Blocos de construção de UI reutilizáveis
+├── data/         # Entidades de dados estáticos e constantes (ex: models de serviços)
+├── hooks/        # Encapsulamento de lógicas complexas (React Custom Hooks)
+├── pages/        # Views principais (Entrypoints de rotas)
+├── sections/     # Agrupamentos macro de contexto da interface (Hero, Footer)
+├── App.tsx       # Componente orquestrador de roteamento
+└── index.css     # Diretivas globais de estilo da aplicação (Tailwind base)
 ```
-
----
-
-<div align="center">
-  <p>Feito com ❤️ para apresentar o melhor do audiovisual.</p>
-</div>
