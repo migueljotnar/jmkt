@@ -34,8 +34,8 @@ export default function Hero() {
             Momentos em <span className="block italic text-accent">Memórias</span>
           </h1>
           <p className="mx-auto mb-8 w-full max-w-[430px] text-base font-light text-body/90 lg:mx-0 lg:text-[1.05rem]">
-            Designer, Filmmaker e Videomaker apaixonada por contar histórias através de lentes e da
-            criatividade.
+            Produção de foto, vídeo e design para marcas que querem se comunicar com
+            identidade própria.
           </p>
           <Button href="#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
             Vamos conversar

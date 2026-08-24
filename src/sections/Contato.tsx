@@ -165,7 +165,7 @@ Mensagem: ${mensagem.trim()}`
                 className={`${inputClass} appearance-none cursor-pointer`}
                 // Seta personalizada no select
                 style={{
-                  backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='%23F6F3EA' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
+                  backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='%23EEE8D9' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'right 1rem center',
                   backgroundSize: '1.2em',

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# TODO: adicionar "Sitemap: https://<dominio>/sitemap.xml" quando o dominio de producao for definido.

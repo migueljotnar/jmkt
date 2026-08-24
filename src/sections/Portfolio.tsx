@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, LeafMark } from '../components/UI'
-import { services } from '../data/services'
+import { services, type ServiceData } from '../data/services'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function ArrowIcon({ direction }: { direction: 'previous' | 'next' }) {
   return (
@@ -25,6 +26,38 @@ const portfolioServices = portfolioOrder.flatMap((slug) => {
   const service = services.find((item) => item.slug === slug)
   return service ? [service] : []
 })
+
+// Mesmo padrão de reveal-on-scroll do ServiceCard (Servicos.tsx).
+function PortfolioCard({ service }: { service: ServiceData }) {
+  const { ref, isVisible } = useScrollAnimation<HTMLAnchorElement>()
+
+  return (
+    <Link
+      ref={ref}
+      to={`/servicos/${service.slug}`}
+      aria-label={`Ver detalhes do serviço ${service.title}`}
+      className={`glass-card group relative aspect-[4/3] min-w-[82%] snap-center overflow-hidden rounded-2xl no-underline transition-all duration-700 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] focus-visible:ring-2 focus-visible:ring-accent/60 sm:min-w-[46%] md:min-w-[31%] lg:min-w-[calc((100%_-_4rem)/5)]
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
+      `}
+    >
+      <img
+        src={service.coverImage}
+        alt={service.coverAlt}
+        className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:scale-108 group-hover:opacity-100"
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/30 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+      <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 text-left">
+        <span className="font-['Playfair_Display',serif] text-base font-semibold text-cream transition-colors duration-300 group-hover:text-accent">
+          {service.title}
+        </span>
+        <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-accent/80 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent">
+          Ver projeto <span aria-hidden="true">↗</span>
+        </span>
+      </div>
+    </Link>
+  )
+}
 
 export default function Portfolio() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -87,28 +120,7 @@ export default function Portfolio() {
             className="scrollbar-hidden flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth rounded-2xl pb-3 outline-none focus-visible:ring-2 focus-visible:ring-accent/45 md:snap-none"
           >
             {portfolioServices.map((service) => (
-              <Link
-                key={service.slug}
-                to={`/servicos/${service.slug}`}
-                aria-label={`Ver detalhes do serviço ${service.title}`}
-                className="glass-card group relative aspect-[4/3] min-w-[82%] snap-center overflow-hidden rounded-2xl no-underline transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] focus-visible:ring-2 focus-visible:ring-accent/60 sm:min-w-[46%] md:min-w-[31%] lg:min-w-[calc((100%_-_4rem)/5)]"
-              >
-                <img
-                  src={service.coverImage}
-                  alt={service.coverAlt}
-                  className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:scale-108 group-hover:opacity-100"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/30 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
-                <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 text-left">
-                  <span className="font-['Playfair_Display',serif] text-base font-semibold text-cream transition-colors duration-300 group-hover:text-accent">
-                    {service.title}
-                  </span>
-                  <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-accent/80 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent">
-                    Ver projeto <span aria-hidden="true">↗</span>
-                  </span>
-                </div>
-              </Link>
+              <PortfolioCard key={service.slug} service={service} />
             ))}
           </div>
 

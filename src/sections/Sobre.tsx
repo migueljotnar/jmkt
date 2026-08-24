@@ -58,14 +58,14 @@ export default function Sobre() {
             </h2>
             <LeafMark className="mb-5 justify-center lg:justify-start" />
             <p className="text-sm text-body/88 sm:text-base">
-              Com anos de experiência no mundo do audiovisual e design, busco sempre capturar a
-              essência de cada projeto, criando narrativas visuais que encantam e comunicam.
+              Anos entre sets, estúdios e telas me ensinaram uma coisa: bom conteúdo não é sobre
+              efeito, é sobre entender o que você quer comunicar e traduzir isso em imagem.
             </p>
             <p className="text-sm text-body/88 sm:text-base">
-              Minha paixão é dar vida às ideias, seja em um filme, um vídeo institucional ou uma
-              peça de design.
+              Hoje aplico isso em filmes, vídeos institucionais e peças de design, sempre com o
+              mesmo cuidado: cada detalhe importa.
             </p>
-            <p className="mb-8 font-['Playfair_Display',serif] text-lg text-accent">Vamos criar algo incrível juntos?</p>
+            <p className="mb-8 font-['Playfair_Display',serif] text-lg text-accent">Tem um projeto em mente? Vamos conversar.</p>
             <Button href="#servicos" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
               Conheça mais sobre mim
             </Button>

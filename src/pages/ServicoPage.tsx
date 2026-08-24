@@ -10,11 +10,17 @@ export default function ServicoPage() {
   const service = services.find((s) => s.slug === slug)
 
   useEffect(() => {
-    if (service) {
-      document.title = service.pageTitle
-    }
+    if (!service) return
+
+    document.title = service.pageTitle
+
+    const metaDescription = document.querySelector('meta[name="description"]')
+    const previousDescription = metaDescription?.getAttribute('content') ?? ''
+    metaDescription?.setAttribute('content', service.description)
+
     return () => {
       document.title = 'Jessyane Soares | Filmmaker e Videomaker'
+      metaDescription?.setAttribute('content', previousDescription)
     }
   }, [service])
 

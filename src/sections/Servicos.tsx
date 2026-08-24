@@ -93,10 +93,10 @@ export default function Servicos() {
         <div className="grid items-center gap-10 lg:grid-cols-[280px_1fr] lg:gap-10">
           <div className="text-center lg:text-left">
             <h3 className="mb-5 text-[clamp(2rem,3.5vw,2.75rem)] font-semibold leading-[1.08] tracking-[-0.02em]">
-              Soluções criativas para marcas que querem <span className="italic text-accent">se destacar</span>.
+              Fotografia, vídeo e design em um só lugar, sem a dor de cabeça de lidar com <span className="italic text-accent">vários fornecedores</span>.
             </h3>
             <p className="mb-8 text-sm text-body/88 sm:text-base">
-              Estratégia, criatividade e produção em um só lugar para transformar ideias em resultados.
+              Do primeiro contato à entrega final, acompanho pessoalmente cada projeto, do jeito que negócio da região merece.
             </p>
             <Button href="#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
               Ver todos os serviços
