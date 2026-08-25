@@ -23,6 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Skills locais do Claude / agentes
+# Local config
 .claude/
 .agents/
