@@ -152,8 +152,8 @@ export default function Header() {
       <header
         className={`fixed top-0 z-[100] w-full transition-all duration-500 ${
           scrolled
-            ? 'glass-nav border-b'
-            : 'border-b-0 bg-gradient-to-b from-ink/85 via-ink/25 to-transparent'
+            ? 'glass-nav border-b border-cream/10'
+            : 'border-b-0 border-transparent bg-gradient-to-b from-ink/85 via-ink/25 to-transparent'
         }`}
       >
         <nav className={`mx-auto flex max-w-[1320px] items-center justify-between px-5 sm:px-8 ${scrolled ? 'py-3' : 'py-4'} transition-all duration-500`}>

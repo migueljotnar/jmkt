@@ -6,13 +6,12 @@ function Diamond() {
 
 export function LeafMark({ className = '' }: { className?: string }) {
   return (
-    <span className={`inline-flex items-center gap-3 text-accent ${className}`} aria-hidden="true">
+    <span className={`inline-flex items-center text-accent ${className}`} aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.35} className="h-5 w-5">
         <path d="M12 21V10" strokeLinecap="round" />
         <path d="M12 10c0-4 3-7 7-7 0 4-3 7-7 7Z" strokeLinejoin="round" />
         <path d="M12 14c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6Z" strokeLinejoin="round" />
       </svg>
-      <span className="h-px w-14 bg-accent/25" />
     </span>
   )
 }
@@ -28,12 +27,11 @@ export function Eyebrow({
 }) {
   return (
     <div
-      className={`flex items-center gap-3 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-accent mb-4 font-['Lato',sans-serif] ${align === 'center' ? 'justify-center' : ''
+      className={`flex items-center gap-3 text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-accent mb-4 ${align === 'center' ? 'justify-center' : ''
         } ${className}`}
     >
       <Diamond />
       <span>{children}</span>
-      <span className="h-px w-14 sm:w-20 bg-accent/20" aria-hidden="true" />
     </div>
   )
 }

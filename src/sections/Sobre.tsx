@@ -65,7 +65,7 @@ export default function Sobre() {
               Hoje aplico isso em filmes, vídeos institucionais e peças de design, sempre com o
               mesmo cuidado: cada detalhe importa.
             </p>
-            <p className="mb-8 font-['Playfair_Display',serif] text-lg text-accent">Tem um projeto em mente? Vamos conversar.</p>
+            <p className="mb-8 text-lg font-medium text-accent">Tem um projeto em mente? Vamos conversar.</p>
             <Button href="#servicos" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
               Conheça mais sobre mim
             </Button>

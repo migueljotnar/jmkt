@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, LeafMark } from '../components/UI'
-import { services, type ServiceData } from '../data/services'
+import { LeafMark } from '../components/UI'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function ArrowIcon({ direction }: { direction: 'previous' | 'next' }) {
@@ -21,41 +19,78 @@ function ArrowIcon({ direction }: { direction: 'previous' | 'next' }) {
   )
 }
 
-const portfolioOrder = ['gastronomia', 'gestao-de-perfil', 'filmmaker', 'videomaker', 'criacao-de-sites', 'fotos-pessoais']
-const portfolioServices = portfolioOrder.flatMap((slug) => {
-  const service = services.find((item) => item.slug === slug)
-  return service ? [service] : []
-})
+interface PortfolioPhoto {
+  src: string
+  alt: string
+  title: string
+  category: string
+}
 
-// Mesmo padrão de reveal-on-scroll do ServiceCard (Servicos.tsx).
-function PortfolioCard({ service }: { service: ServiceData }) {
-  const { ref, isVisible } = useScrollAnimation<HTMLAnchorElement>()
+const portfolioPhotos: PortfolioPhoto[] = [
+  {
+    src: '/Imagens/Index/gastronomia-principal.jpg',
+    alt: 'Fotografia gastronômica e produtos',
+    title: 'Gastronomia & Produtos',
+    category: 'Fotografia',
+  },
+  {
+    src: '/Imagens/Index/videomaker-principal.png',
+    alt: 'Produção e direção de vídeo',
+    title: 'Comercial & Institucional',
+    category: 'Vídeo',
+  },
+  {
+    src: '/Imagens/Index/pessoais-principal.png',
+    alt: 'Ensaios fotográficos autorais',
+    title: 'Ensaios Autorais',
+    category: 'Fotografia',
+  },
+  {
+    src: '/Imagens/Index/gestao-de-perfil-principal.png',
+    alt: 'Identidade visual e arte para redes sociais',
+    title: 'Design & Redes Sociais',
+    category: 'Arte',
+  },
+  {
+    src: '/Imagens/Index/sites-principal.png',
+    alt: 'Criação de sites e landing pages',
+    title: 'Plataformas & Sites',
+    category: 'Criação de Sites',
+  },
+  {
+    src: '/Imagens/Index/Filmmaker-principal.png',
+    alt: 'Produções cinematográficas e eventos',
+    title: 'Cobertura Cinematográfica',
+    category: 'Vídeo',
+  },
+]
+
+function PortfolioCard({ photo }: { photo: PortfolioPhoto }) {
+  const { ref, isVisible } = useScrollAnimation<HTMLDivElement>()
 
   return (
-    <Link
+    <div
       ref={ref}
-      to={`/servicos/${service.slug}`}
-      aria-label={`Ver detalhes do serviço ${service.title}`}
-      className={`glass-card group relative aspect-[4/3] min-w-[82%] snap-center overflow-hidden rounded-2xl no-underline transition-all duration-700 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] focus-visible:ring-2 focus-visible:ring-accent/60 sm:min-w-[46%] md:min-w-[31%] lg:min-w-[calc((100%_-_4rem)/5)]
+      className={`glass-card relative aspect-[4/3] min-w-[82%] snap-center overflow-hidden rounded-2xl select-none transition-all duration-700 sm:min-w-[46%] md:min-w-[31%] lg:min-w-[calc((100%_-_4rem)/4)]
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}
       `}
     >
       <img
-        src={service.coverImage}
-        alt={service.coverAlt}
-        className="h-full w-full object-cover opacity-85 transition-all duration-700 group-hover:scale-108 group-hover:opacity-100"
+        src={photo.src}
+        alt={photo.alt}
+        className="h-full w-full object-cover opacity-90 transition-transform duration-700"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/30 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/20 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 text-left">
-        <span className="font-['Playfair_Display',serif] text-base font-semibold text-cream transition-colors duration-300 group-hover:text-accent">
-          {service.title}
+        <span className="text-[0.7rem] font-bold uppercase tracking-[0.14em] text-accent">
+          {photo.category}
         </span>
-        <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.1em] text-accent/80 transition-all duration-300 group-hover:translate-x-1 group-hover:text-accent">
-          Ver projeto <span aria-hidden="true">↗</span>
+        <span className="text-base font-semibold text-cream">
+          {photo.title}
         </span>
       </div>
-    </Link>
+    </div>
   )
 }
 
@@ -95,7 +130,7 @@ export default function Portfolio() {
       <div className="relative z-10 mx-auto max-w-[1240px]">
         <div className="mb-7 text-center sm:mb-9">
           <h2 id="portfolio-title" className="section-heading">Portfólio</h2>
-          <LeafMark className="mt-3 justify-center [&>span]:hidden" />
+          <LeafMark className="mt-3 justify-center" />
         </div>
 
         <div className="relative px-1 sm:px-14">
@@ -119,8 +154,8 @@ export default function Portfolio() {
             onScroll={updateScrollState}
             className="scrollbar-hidden flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth rounded-2xl pb-3 outline-none focus-visible:ring-2 focus-visible:ring-accent/45 md:snap-none"
           >
-            {portfolioServices.map((service) => (
-              <PortfolioCard key={service.slug} service={service} />
+            {portfolioPhotos.map((photo, index) => (
+              <PortfolioCard key={index} photo={photo} />
             ))}
           </div>
 
@@ -134,12 +169,6 @@ export default function Portfolio() {
           >
             <ArrowIcon direction="next" />
           </button>
-        </div>
-
-        <div className="mt-7 text-center sm:mt-9">
-          <Button href="#contato" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
-            Ver mais projetos
-          </Button>
         </div>
       </div>
     </section>

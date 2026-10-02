@@ -4,7 +4,7 @@ import { services } from '../data/services'
 import ServicePage from '../components/ServicePage'
 
 // Renderiza a página de um serviço a partir da rota /servicos/:slug
-// (ex: /servicos/filmmaker).
+// (ex: /servicos/fotografia).
 export default function ServicoPage() {
   const { slug } = useParams<{ slug: string }>()
   const service = services.find((s) => s.slug === slug)
@@ -19,7 +19,7 @@ export default function ServicoPage() {
     metaDescription?.setAttribute('content', service.description)
 
     return () => {
-      document.title = 'Jessyane Soares | Filmmaker e Videomaker'
+      document.title = 'Jessyane Soares | Fotografia, Vídeo, Arte, Redes Sociais e Sites'
       metaDescription?.setAttribute('content', previousDescription)
     }
   }, [service])

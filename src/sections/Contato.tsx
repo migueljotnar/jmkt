@@ -25,13 +25,20 @@ function InstagramIcon() {
 const numeroWhatsApp = '5568999582647'
 
 const slugToNameMap: Record<string, string> = {
-  gastronomia: 'Gastronomia',
-  'gestao-de-perfil': 'Gestão de Perfil',
-  filmmaker: 'Filmmaker',
-  videomaker: 'Videomaker',
-  'fotos-pessoais': 'Fotos Pessoais',
+  fotografia: 'Fotografia',
+  video: 'Vídeo',
+  arte: 'Arte',
+  'gestao-de-redes-sociais': 'Gestão de redes sociais',
   'criacao-de-sites': 'Criação de Sites',
 }
+
+const servicosDisponiveis = [
+  'Fotografia',
+  'Vídeo',
+  'Arte',
+  'Gestão de redes sociais',
+  'Criação de Sites',
+]
 
 const contactItems = [
   {
@@ -51,45 +58,58 @@ const inputClass =
 
 const labelClass = 'mb-2 block text-[.7rem] font-bold uppercase tracking-[0.12em] text-cream/78'
 
-const opcoesServicos = [
-  'Gastronomia',
-  'Gestão de Perfil',
-  'Filmmaker',
-  'Videomaker',
-  'Fotos Pessoais',
-  'Criação de Sites',
-]
-
 export default function Contato() {
   const location = useLocation()
   const [nome, setNome] = useState('')
-  const [servico, setServico] = useState(() => {
+  const [tipoEmpresa, setTipoEmpresa] = useState('')
+  const [instagram, setInstagram] = useState('')
+  const [mensagem, setMensagem] = useState('')
+  const [servicosSelecionados, setServicosSelecionados] = useState<string[]>(() => {
     const params = new URLSearchParams(location.search)
     const serviceParam = params.get('servico')
-    return (serviceParam && slugToNameMap[serviceParam]) || ''
+    const mapped = serviceParam && slugToNameMap[serviceParam]
+    return mapped ? [mapped] : []
   })
-  const [mensagem, setMensagem] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const toggleServico = (servico: string) => {
+    setServicosSelecionados((prev) =>
+      prev.includes(servico) ? prev.filter((s) => s !== servico) : [...prev, servico]
+    )
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!nome.trim() || !servico || !mensagem.trim()) {
-      alert('Por favor, preencha todos os campos obrigatórios.')
+    if (!nome.trim() || !tipoEmpresa.trim() || !instagram.trim()) {
+      alert('Por favor, preencha seu nome, o tipo de empresa/serviço e seu Instagram.')
       return
     }
 
-    const texto = `Olá! Meu nome é *${nome.trim()}*.
-Tenho interesse no serviço: *${servico}*.
+    if (servicosSelecionados.length === 0) {
+      alert('Por favor, selecione pelo menos um serviço que gostaria de contratar.')
+      return
+    }
 
-Mensagem: ${mensagem.trim()}`
+    const listaServicos = servicosSelecionados.map((s) => `• ${s}`).join('\n')
+    const textoMensagem = mensagem.trim()
+      ? `\n\n💬 *Detalhes / Necessidades:*\n${mensagem.trim()}`
+      : ''
+
+    const texto = `Olá, Jessyane! Gostaria de solicitar um orçamento para o meu negócio.
+
+👤 *Nome:* ${nome.trim()}
+🏢 *Tipo de empresa / serviço:* ${tipoEmpresa.trim()}
+📱 *Instagram:* ${instagram.trim()}
+
+✨ *Serviços de interesse:*
+${listaServicos}${textoMensagem}`
 
     const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`
 
     setIsLoading(true)
     window.open(url, '_blank', 'noopener,noreferrer')
 
-    // Reabilita o botão depois de dar tempo do WhatsApp abrir
     setTimeout(() => {
       setIsLoading(false)
     }, 2000)
@@ -97,6 +117,8 @@ Mensagem: ${mensagem.trim()}`
 
   return (
     <section id="contato" className="relative px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
+      <span id="orcamento" className="scroll-mt-24" />
+      <span id="contratar" className="scroll-mt-24" />
       <Foliage
         crop="left-bottom"
         className="absolute -left-20 bottom-[-5rem] hidden h-[35rem] w-[23rem] opacity-20 md:block lg:w-[27rem] lg:opacity-[.28]"
@@ -104,16 +126,20 @@ Mensagem: ${mensagem.trim()}`
       <Foliage className="absolute -right-24 -top-24 hidden h-[29rem] w-[18rem] opacity-[.11] md:block lg:w-[21rem] lg:opacity-[.16]" />
       <div className="absolute bottom-[8%] left-[12%] h-72 w-72 rounded-full bg-accent/8 blur-[100px]" aria-hidden="true" />
       <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-9 sm:px-10 sm:py-11">
-        <div className="grid items-center gap-12 lg:grid-cols-[.88fr_1.12fr] lg:gap-14">
+        <div className="grid items-start gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-14">
           <div className="text-center lg:text-left">
-            <h2 className="mb-3 text-[clamp(2.6rem,5vw,3.8rem)] font-semibold leading-[1.05] tracking-[-0.025em]">Entre em Contato</h2>
-            <div className="mb-4 flex items-center justify-center gap-3 text-accent lg:justify-start" aria-hidden="true">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-2 block">
+              Contratação & Orçamento
+            </span>
+            <h2 className="mb-3 text-[clamp(2.4rem,4.5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.025em]">
+              Vamos Criar Juntos?
+            </h2>
+            <div className="mb-4 flex items-center justify-center text-accent lg:justify-start" aria-hidden="true">
               <span className="h-1.5 w-1.5 rotate-45 bg-accent" />
-              <span className="h-px w-16 bg-accent/25" />
             </div>
-            <p className="mx-auto mb-9 max-w-[410px] text-sm text-body/88 sm:text-base lg:mx-0">
-              Gostou do que viu? Preencha o formulário e envie uma mensagem diretamente para o
-              WhatsApp.
+            <p className="mx-auto mb-9 max-w-[420px] text-sm text-body/88 sm:text-base lg:mx-0">
+              Selecione os serviços que você precisa e responda ao breve questionário ao lado.
+              Geramos uma mensagem pronta e estruturada direto para o WhatsApp!
             </p>
 
             <div className="flex flex-col items-center gap-5 lg:items-start">
@@ -140,55 +166,110 @@ Mensagem: ${mensagem.trim()}`
           </div>
 
           <form onSubmit={handleSubmit} className="glass-panel-strong rounded-2xl p-5 text-left sm:p-7">
-            <div className="mb-5 sm:mb-6">
-              <label htmlFor="nome" className={labelClass}>Nome:</label>
+            <h3 className="mb-4 text-xl font-semibold text-cream">
+              Questionário de Contratação
+            </h3>
+
+            {/* Seleção de Serviços */}
+            <div className="mb-6">
+              <label className={labelClass}>
+                Selecione os serviços de interesse: <span className="text-accent">*</span>
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {servicosDisponiveis.map((s) => {
+                  const isSelected = servicosSelecionados.includes(s)
+                  return (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => toggleServico(s)}
+                      className={`inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                        isSelected
+                          ? 'border border-accent bg-accent/25 text-cream shadow-[0_0_15px_rgba(183,173,105,0.25)]'
+                          : 'border border-white/10 bg-white/5 text-body/80 hover:border-accent/40 hover:text-cream'
+                      }`}
+                      aria-pressed={isSelected}
+                    >
+                      <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] ${
+                        isSelected ? 'bg-accent text-ink font-bold' : 'border border-white/20'
+                      }`}>
+                        {isSelected ? '✓' : '+'}
+                      </span>
+                      {s}
+                    </button>
+                  )
+                })}
+              </div>
+              {servicosSelecionados.length === 0 && (
+                <p className="mt-2 text-xs text-accent/75">
+                  Clique nos serviços que deseja incluir no orçamento.
+                </p>
+              )}
+            </div>
+
+            {/* Questionário do Cliente */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-4 mb-4">
+              <div>
+                <label htmlFor="nome" className={labelClass}>
+                  Seu Nome: <span className="text-accent">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
+                  aria-label="Digite seu nome completo"
+                  className={inputClass}
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="instagram" className={labelClass}>
+                  Instagram da Empresa / Marca: <span className="text-accent">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="instagram"
+                  value={instagram}
+                  onChange={(e) => setInstagram(e.target.value)}
+                  required
+                  aria-label="Digite o Instagram da sua empresa ou perfil"
+                  className={inputClass}
+                  placeholder="@seu.perfil"
+                />
+              </div>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="tipo-empresa" className={labelClass}>
+                Tipo de empresa ou serviço que presta: <span className="text-accent">*</span>
+              </label>
               <input
                 type="text"
-                id="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                id="tipo-empresa"
+                value={tipoEmpresa}
+                onChange={(e) => setTipoEmpresa(e.target.value)}
                 required
-                aria-label="Digite seu nome completo"
+                aria-label="Qual o segmento ou tipo de serviço prestado?"
                 className={inputClass}
-                placeholder="Seu nome completo"
+                placeholder="Ex: Restaurante, Consultório, Moda, Advocacia..."
               />
             </div>
 
-            <div className="mb-5 sm:mb-6">
-              <label htmlFor="servicos-select" className={labelClass}>Serviços de Interesse:</label>
-              <select
-                id="servicos-select"
-                value={servico}
-                onChange={(e) => setServico(e.target.value)}
-                required
-                aria-label="Selecione um serviço de interesse"
-                className={`${inputClass} appearance-none cursor-pointer`}
-                // Seta personalizada no select
-                style={{
-                  backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='%23EEE8D9' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")`,
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'right 1rem center',
-                  backgroundSize: '1.2em',
-                }}
-              >
-                <option value="" disabled>Selecione um serviço</option>
-                {opcoesServicos.map((s) => (
-                  <option key={s} value={s}>{s}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="mb-6 sm:mb-8">
-              <label htmlFor="mensagem" className={labelClass}>Mensagem:</label>
+            <div className="mb-6">
+              <label htmlFor="mensagem" className={labelClass}>
+                Detalhes ou necessidades do projeto (opcional):
+              </label>
               <textarea
                 id="mensagem"
-                rows={4}
+                rows={3}
                 value={mensagem}
                 onChange={(e) => setMensagem(e.target.value)}
-                required
-                aria-label="Digite sua mensagem"
-                className={`${inputClass} resize-y min-h-[120px]`}
-                placeholder="Como podemos te ajudar?"
+                aria-label="Digite detalhes ou necessidades do projeto"
+                className={`${inputClass} resize-y min-h-[85px]`}
+                placeholder="Conte um pouco sobre o que você precisa ou tem em mente..."
               />
             </div>
 
@@ -199,7 +280,7 @@ Mensagem: ${mensagem.trim()}`
               icon={<WhatsAppIcon />}
               className="w-full !rounded-lg py-3.5 text-xs sm:text-sm [&_svg]:h-4 [&_svg]:w-4"
             >
-              {isLoading ? 'Redirecionando...' : 'Enviar via WhatsApp'}
+              {isLoading ? 'Redirecionando...' : 'Solicitar Orçamento no WhatsApp'}
             </Button>
           </form>
         </div>

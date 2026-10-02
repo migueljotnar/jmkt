@@ -6,33 +6,31 @@ import { Button, IconCircle, LeafMark } from '../components/UI'
 
 // Ficam aqui (e não em services.tsx) para manter o arquivo de dados livre de JSX.
 const serviceIcons: Record<string, React.ReactNode> = {
-  gastronomia: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M6 2v7a2 2 0 0 0 4 0V2M8 9v13M16 2c-1.7 0-3 2-3 5s1.3 5 3 5v10" />
-    </svg>
-  ),
-  'gestao-de-perfil': (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="8" r="3.2" />
-      <path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" />
-    </svg>
-  ),
-  filmmaker: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M4 10h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9Z" />
-      <path d="M4 10 5 5h14l1 5M8 5l1 5M13 5l1 5" />
-    </svg>
-  ),
-  videomaker: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="7" width="12" height="10" rx="1.5" />
-      <path d="M15 10.5 21 7.5v9L15 13.5" />
-    </svg>
-  ),
-  'fotos-pessoais': (
+  fotografia: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
       <path d="M4 8a1 1 0 0 1 1-1h2l1.2-2h7.6L17 7h2a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8Z" />
       <circle cx="12" cy="13" r="3.3" />
+    </svg>
+  ),
+  video: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="6" width="12" height="12" rx="1.5" />
+      <path d="M15 10l5-3v10l-5-3v-4Z" />
+    </svg>
+  ),
+  arte: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2C6.5 2 2 6.5 2 12c0 2.2 1.8 4 4 4h1.5a1.5 1.5 0 0 1 1.5 1.5V19c0 1.7 1.3 3 3 3 5.5 0 10-4.5 10-10S17.5 2 12 2Z" />
+      <circle cx="7.5" cy="10.5" r="1" fill="currentColor" />
+      <circle cx="12" cy="7.5" r="1" fill="currentColor" />
+      <circle cx="16.5" cy="10.5" r="1" fill="currentColor" />
+    </svg>
+  ),
+  'gestao-de-redes-sociais': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="4" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" />
     </svg>
   ),
   'criacao-de-sites': (
@@ -43,7 +41,7 @@ const serviceIcons: Record<string, React.ReactNode> = {
   ),
 }
 
-const serviceOrder = ['gastronomia', 'gestao-de-perfil', 'filmmaker', 'videomaker', 'criacao-de-sites', 'fotos-pessoais']
+const serviceOrder = ['fotografia', 'video', 'arte', 'gestao-de-redes-sociais', 'criacao-de-sites']
 const displayedServices = serviceOrder
   .map((slug) => services.find((service) => service.slug === slug))
   .filter((service): service is ServiceData => Boolean(service))
@@ -70,7 +68,7 @@ function ServiceCard({ service }: { service: ServiceData }) {
       </div>
       <div className="relative flex min-h-14 items-center gap-3 border-t border-accent/12 bg-ink/28 px-4 py-2 backdrop-blur-xl">
         <IconCircle size="sm" className="-mt-8 h-10 w-10 bg-ink/45">{serviceIcons[service.slug]}</IconCircle>
-        <span className="font-['Playfair_Display',serif] text-sm font-semibold text-cream">{service.title}</span>
+        <span className="text-sm font-semibold tracking-wide text-cream">{service.title}</span>
       </div>
     </Link>
   )
@@ -87,7 +85,7 @@ export default function Servicos() {
       <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-10 sm:px-9 sm:py-12 md:p-12">
         <div className="mb-8 text-center">
           <h2 className="section-heading">Nossos Serviços</h2>
-          <LeafMark className="mt-3 justify-center [&>span]:hidden" />
+          <LeafMark className="mt-3 justify-center" />
         </div>
 
         <div className="grid items-center gap-10 lg:grid-cols-[280px_1fr] lg:gap-10">
