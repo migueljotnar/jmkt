@@ -30,10 +30,10 @@ export default function Sobre() {
     <section id="sobre" className="relative z-20 px-4 py-14 sm:px-6 sm:py-20 lg:py-24">
       <Foliage className="absolute -right-24 -top-28 hidden h-[36rem] w-[21rem] opacity-20 md:block lg:w-[24rem] lg:opacity-[.26]" />
       <div className="absolute left-[8%] top-[20%] h-72 w-72 rounded-full bg-accent/8 blur-[90px]" aria-hidden="true" />
-      <div className="glass-panel relative z-10 mx-auto max-w-[1120px] rounded-[1.65rem] px-6 py-10 sm:px-10 sm:py-12 md:p-12 lg:p-14">
-        <div className="flex flex-col items-center gap-14 lg:flex-row lg:gap-20">
-          <div className="relative w-full max-w-[390px] flex-shrink-0">
-            <div className="glass-card rounded-[1.2rem] p-2">
+      <div className="relative z-10 mx-auto max-w-[1180px]">
+        <div className="flex flex-col items-center gap-14 lg:flex-row lg:justify-center lg:gap-20">
+          <div className="relative w-full max-w-[390px] shrink-0">
+            <div className="glass-card rounded-3xl p-2">
               <div className="about-portrait">
                 <img
                   src="/Imagens/Index/Foto-sobre-recorte-v3.webp"
@@ -49,25 +49,30 @@ export default function Sobre() {
             <BotanicalSeal />
           </div>
 
-          <div className="max-w-[510px] text-center lg:text-left">
-            <Eyebrow className="justify-center lg:justify-start">Sobre mim</Eyebrow>
-            <h2 className="mb-5 text-[clamp(2.7rem,5vw,4rem)] font-semibold leading-[1.02] tracking-[-0.025em]">
-              Olá, eu sou
-              <br />
-              <span className="text-accent">a Jessyane!</span>
+          <div className="max-w-[540px] text-center lg:text-left">
+            <Eyebrow className="justify-center lg:justify-start">Bastidores &amp; Processo</Eyebrow>
+            <h2 className="section-title">
+              Do roteiro ao feed.{' '}
+              <span className="highlight block mt-1">Muito prazer, Jessyane.</span>
             </h2>
             <LeafMark className="mb-5 justify-center lg:justify-start" />
-            <p className="text-sm text-body/88 sm:text-base">
-              Anos entre sets, estúdios e telas me ensinaram uma coisa: bom conteúdo não é sobre
-              efeito, é sobre entender o que você quer comunicar e traduzir isso em imagem.
+            <p className="section-lead">
+              Se você já perdeu tempo tentando conciliar fotógrafo, videomaker e social media ou
+              sofreu com prazos não cumpridos, o meu trabalho foi pensado para você.
             </p>
-            <p className="text-sm text-body/88 sm:text-base">
-              Hoje aplico isso em filmes, vídeos institucionais e peças de design, sempre com o
-              mesmo cuidado: cada detalhe importa.
+            <p className="section-lead">
+              Cuido de todo o ciclo visual da sua marca: alinho a estratégia, crio os roteiros, vou
+              até o seu espaço para captar fotos e vídeos com direção estética apurada e entrego a
+              grade das suas redes pronta e organizada.
             </p>
-            <p className="mb-8 text-lg font-medium text-accent">Tem um projeto em mente? Vamos conversar.</p>
-            <Button href="#servicos" variant="outline" className="px-7 py-3.5 text-xs sm:text-sm">
-              Conheça mais sobre mim
+            <p className="section-lead">
+              Sem enrolação, sem ruído de comunicação e com pontualidade rigorosa em cada entrega.
+            </p>
+            <p className="mb-8 text-lg font-semibold text-accent/90">
+              Pronto para profissionalizar sua presença digital?
+            </p>
+            <Button href="#portfolio" variant="outline">
+              Conhecer meu trabalho
             </Button>
           </div>
         </div>

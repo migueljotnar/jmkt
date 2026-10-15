@@ -6,7 +6,8 @@ export interface GalleryItem {
 
 export interface ServiceData {
   slug: string        // URL: /servicos/gastronomia
-  title: string       // Nome exibido na página
+  title: string       // Nome do serviço (página, cards da home e formulário)
+  tag: string         // Categoria curta exibida no card da home
   pageTitle: string   // Título da aba do navegador
   coverImage: string  // Imagem do card na home
   coverAlt: string
@@ -18,6 +19,7 @@ export const services: ServiceData[] = [
   {
     slug: 'fotografia',
     title: 'Fotografia',
+    tag: 'Direção de cena & produto',
     pageTitle: 'Fotografia | Jessyane Soares',
     coverImage: '/Imagens/Index/gastronomia-principal.webp',
     coverAlt: 'Serviço de Fotografia',
@@ -30,10 +32,11 @@ export const services: ServiceData[] = [
   },
   {
     slug: 'video',
-    title: 'Vídeo',
-    pageTitle: 'Vídeo | Jessyane Soares',
-    coverImage: '/Imagens/Index/videomaker-principal.webp',
-    coverAlt: 'Serviço de Produção de Vídeo',
+    title: 'Produção de Vídeo',
+    tag: 'Reels & filmes institucionais',
+    pageTitle: 'Produção de Vídeo | Jessyane Soares',
+    coverImage: '/Imagens/Index/Filmmaker-principal.webp',
+    coverAlt: 'Bastidor de filmagem: tatuador em ação captado em plano fechado',
     description: 'Produção audiovisual completa: vídeos comerciais, institucionais, cobertura de eventos e reels dinâmicos.',
     gallery: [
       { src: '/Imagens/Index/videomaker-principal.webp', alt: 'Cobertura de eventos e momentos especiais', description: 'Captação dinâmica que não perde nenhum detalhe importante.' },
@@ -43,10 +46,11 @@ export const services: ServiceData[] = [
   },
   {
     slug: 'arte',
-    title: 'Arte',
-    pageTitle: 'Arte & Design | Jessyane Soares',
-    coverImage: '/Imagens/Index/gestao-de-perfil-principal.webp',
-    coverAlt: 'Serviço de Arte e Design',
+    title: 'Design Gráfico',
+    tag: 'Identidade visual & peças autorais',
+    pageTitle: 'Design Gráfico | Jessyane Soares',
+    coverImage: '/Imagens/Index/pessoais-principal.webp',
+    coverAlt: 'Ensaio editorial com modelo sentada em estúdio',
     description: 'Identidade visual, criação de peças gráficas, materiais promocionais e design estratégico para marcas.',
     gallery: [
       { src: '/Imagens/Index/gestao-de-perfil-principal.webp', alt: 'Design de peças e identidade visual', description: 'Conceito gráfico consistente para destacar seu negócio.' },
@@ -56,7 +60,8 @@ export const services: ServiceData[] = [
   },
   {
     slug: 'gestao-de-redes-sociais',
-    title: 'Gestão de redes sociais',
+    title: 'Gestão de Redes Sociais',
+    tag: 'Estratégia, calendário & feed',
     pageTitle: 'Gestão de Redes Sociais | Jessyane Soares',
     coverImage: '/Imagens/Index/gestao-de-perfil-principal.webp',
     coverAlt: 'Serviço de Gestão de Redes Sociais',
@@ -65,19 +70,6 @@ export const services: ServiceData[] = [
       { src: '/Imagens/Index/gestao-de-perfil-principal.webp', alt: 'Estratégia e posicionamento no Instagram', description: 'Um perfil estruturado com imagem profissional e atrativa.' },
       { src: '/Imagens/Index/gestao-de-perfil-principal.webp', alt: 'Planejamento editorial de conteúdo', description: 'Constância e coerência em publicações sem sobrecarregar sua rotina.' },
       { src: '/Imagens/Index/gestao-de-perfil-principal.webp', alt: 'Identidade visual para redes sociais', description: 'Harmonia visual que conecta seu público aos seus valores.' },
-    ],
-  },
-  {
-    slug: 'criacao-de-sites',
-    title: 'Criação de Sites',
-    pageTitle: 'Criação de Sites | Jessyane Soares',
-    coverImage: '/Imagens/Index/sites-principal.webp',
-    coverAlt: 'Criação de Sites',
-    description: 'Sites modernos, rápidos e responsivos, pensados para representar bem a sua empresa e converter visitas em clientes.',
-    gallery: [
-      { src: '/Imagens/Index/sites-principal.webp', alt: 'Design responsivo e contemporâneo', description: 'Experiência fluida em computadores, tablets e smartphones.' },
-      { src: '/Imagens/Index/sites-principal.webp', alt: 'Performance e otimização para buscas', description: 'Carregamento ágil e estrutura pronta para ser encontrada no Google.' },
-      { src: '/Imagens/Index/sites-principal.webp', alt: 'Landing pages de alta conversão', description: 'Layout estruturado para guiar o visitante diretamente ao contato.' },
     ],
   },
 ]

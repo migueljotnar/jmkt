@@ -36,26 +36,6 @@ export function Eyebrow({
   )
 }
 
-export function IconCircle({
-  children,
-  size = 'md',
-  className = '',
-}: {
-  children: React.ReactNode
-  size?: 'sm' | 'md'
-  className?: string
-}) {
-  const sizeClasses = size === 'sm' ? 'h-8 w-8' : 'h-11 w-11'
-  return (
-    <span
-      className={`glass-pill inline-flex ${sizeClasses} shrink-0 items-center justify-center rounded-full text-accent [&>svg]:h-[46%] [&>svg]:w-[46%] ${className}`}
-      aria-hidden="true"
-    >
-      {children}
-    </span>
-  )
-}
-
 function ArrowIcon() {
   return (
     <svg
@@ -89,14 +69,16 @@ interface ButtonProps {
   ariaLabel?: string
 }
 
+// Tamanho único para todos os botões do site; o px menor no celular evita que
+// textos longos quebrem em duas linhas.
 const buttonBase =
-  'group inline-flex items-center justify-center gap-2 rounded-full font-bold uppercase tracking-[0.1em] transition-all duration-300 no-underline outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent/55 focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-60'
+  'group inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 text-xs font-bold uppercase tracking-[0.1em] transition-all duration-300 no-underline outline-none hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-accent/55 focus-visible:ring-offset-2 focus-visible:ring-offset-ink disabled:pointer-events-none disabled:opacity-60 sm:px-7 sm:text-sm [&_svg]:shrink-0'
 
 const buttonVariants: Record<'outline' | 'solid', string> = {
   outline:
-    'glass-pill text-cream hover:border-accent/55 hover:bg-accent/8 hover:text-accent',
+    'glass-pill text-cream hover:border-accent/60 hover:bg-accent/8 hover:text-accent',
   solid:
-    'border border-accent/45 bg-accent-strong/90 text-ink shadow-[0_12px_30px_rgba(0,0,0,.18)] backdrop-blur-md hover:bg-accent',
+    'bg-accent text-ink shadow-[0_10px_30px_rgba(0,0,0,0.35)] hover:bg-accent-light hover:shadow-[0_0_34px_rgba(183,173,105,0.38)]',
 }
 
 // Botão "pill" reutilizável. Vira <Link> (rota interna), <a> (âncora/link externo)

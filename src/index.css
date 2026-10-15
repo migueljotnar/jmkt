@@ -2,14 +2,16 @@
 
 @theme {
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --color-ink: #07170f;
   --color-ink-soft: #0e261a;
   --color-ink-elevated: #173324;
   --color-cream: #eee8d9;
   --color-body: #c5c9bc;
   --color-accent: #b7ad69;
-  --color-accent-strong: #958f4f;
+  --color-accent-light: #c9bf7d;
   --color-hairline: rgba(238, 232, 217, 0.12);
+  --color-danger: #e6a38f;
 }
 
 @layer base {
@@ -103,38 +105,46 @@
 }
 
 @layer components {
-  .glass-panel {
-    background:
-      linear-gradient(145deg, rgba(37, 72, 53, 0.25), rgba(15, 43, 29, 0.15) 54%, rgba(6, 24, 16, 0.25));
-    border: 1px solid rgba(200, 191, 126, 0.25);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
-      0 28px 70px rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(28px) saturate(130%);
-    -webkit-backdrop-filter: blur(28px) saturate(130%);
+  /* Tipografia padrão das seções: título de página (Hero e páginas de serviço),
+     título de seção e texto de apoio. */
+  .page-title {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.3rem, 4.6vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
-  .glass-panel-strong {
-    background:
-      linear-gradient(145deg, rgba(38, 74, 54, 0.35), rgba(10, 34, 23, 0.25));
-    border: 1px solid rgba(238, 232, 217, 0.2);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.12),
-      0 18px 42px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(24px) saturate(120%);
-    -webkit-backdrop-filter: blur(24px) saturate(120%);
+  .section-title {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2.1rem, 3.8vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
+  .section-lead {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: color-mix(in srgb, var(--color-body) 90%, transparent);
+  }
+
+  @media (min-width: 40rem) {
+    .section-lead {
+      font-size: 1rem;
+    }
+  }
+
+  /* Vidro escuro dos cartões: borda translúcida fina que ganha dourado no hover
+     (via utilitários hover:border-accent/60 em quem precisa). */
   .glass-card {
-    background:
-      linear-gradient(150deg, rgba(37, 72, 53, 0.18), rgba(8, 30, 20, 0.22));
-    border: 1px solid rgba(200, 191, 126, 0.22);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.12),
-      0 14px 34px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(22px) saturate(120%);
-    -webkit-backdrop-filter: blur(22px) saturate(120%);
+    background: rgba(14, 38, 26, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(12px) saturate(115%);
+    -webkit-backdrop-filter: blur(12px) saturate(115%);
   }
 
   .glass-nav {
@@ -149,7 +159,7 @@
 
   .glass-pill {
     background: linear-gradient(135deg, rgba(32, 65, 47, 0.28), rgba(7, 26, 17, 0.38));
-    border: 1px solid rgba(200, 191, 126, 0.24);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.045),
       0 10px 26px rgba(0, 0, 0, 0.12);
@@ -157,32 +167,11 @@
     -webkit-backdrop-filter: blur(12px) saturate(112%);
   }
 
-  .glass-field {
-    background-color: rgba(4, 22, 14, 0.34);
-    border: 1px solid rgba(238, 232, 217, 0.11);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.03),
-      0 8px 22px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(12px) saturate(108%);
-    -webkit-backdrop-filter: blur(12px) saturate(108%);
-  }
-
-  .glass-field option {
-    color: var(--color-cream);
-    background: var(--color-ink-soft);
-  }
-
-  .image-glass-overlay {
-    background:
-      linear-gradient(180deg, transparent 34%, rgba(4, 20, 13, 0.16) 62%, rgba(4, 20, 13, 0.64)),
-      rgba(20, 58, 39, 0.08);
-  }
-
   .about-portrait {
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    border-radius: 0.9rem;
+    border-radius: 1rem;
     background: #10271b;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
   }
@@ -226,32 +215,41 @@
       drop-shadow(0 7px 12px rgba(0, 0, 0, 0.12));
   }
 
-  .section-heading {
-    font-size: clamp(1.45rem, 2.4vw, 2rem);
-    letter-spacing: 0.055em;
-    line-height: 1.1;
-    text-transform: uppercase;
+  /* Destaque em serifa itálica dourada dentro de títulos em Montserrat.
+     A Cormorant tem altura-x menor, por isso o leve aumento de tamanho. */
+  .highlight {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.12em;
+    letter-spacing: -0.01em;
+    color: var(--color-accent);
   }
 
-  .scrollbar-hidden {
-    scrollbar-width: none;
+  /* Galeria do portfólio: faixa contínua da esquerda para a direita que pausa
+     no hover/foco. As bordas esmaecem para as fotos entrarem e saírem suavemente. */
+  .portfolio-marquee {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
   }
 
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  .portfolio-marquee__track {
+    margin: 0;
+    padding: 0;
+    animation: portfolio-marquee 80s linear infinite;
+  }
+
+  .portfolio-marquee:hover .portfolio-marquee__track,
+  .portfolio-marquee:focus-within .portfolio-marquee__track {
+    animation-play-state: paused;
   }
 
   @supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
-    .glass-panel,
-    .glass-panel-strong,
     .glass-card,
     .glass-nav,
     .glass-pill {
       background-color: rgba(13, 43, 29, 0.94);
-    }
-
-    .glass-field {
-      background-color: rgba(5, 25, 16, 0.92);
     }
 
     .about-portrait__glass-contour {
@@ -260,9 +258,27 @@
   }
 }
 
+@keyframes portfolio-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* Sem movimento automático: a galeria vira uma faixa rolável à mão. */
+  .portfolio-marquee {
+    overflow-x: auto;
+  }
+
+  .portfolio-marquee__track {
+    animation: none !important;
   }
 
   *,
@@ -280,10 +296,8 @@
     background-attachment: scroll;
   }
 
-  .glass-panel,
-  .glass-panel-strong,
   .glass-card {
-    backdrop-filter: blur(14px) saturate(108%);
+    backdrop-filter: blur(10px) saturate(108%);
     -webkit-backdrop-filter: blur(14px) saturate(108%);
   }
 

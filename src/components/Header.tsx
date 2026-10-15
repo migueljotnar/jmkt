@@ -5,7 +5,7 @@ import { useEscapeAndScrollLock } from '../hooks/useEscapeAndScrollLock'
 const navItems = [
   { id: 'inicio', label: 'Início' },
   { id: 'sobre', label: 'Sobre' },
-  { id: 'servicos', label: 'Nossos Serviços' },
+  { id: 'servicos', label: 'Soluções Integradas' },
   { id: 'portfolio', label: 'Portfólio' },
   { id: 'contato', label: 'Contato' },
 ]
