@@ -209,8 +209,8 @@
         rgba(255, 255, 255, 0.06)
       ),
       rgba(41, 82, 59, 0.07);
-    -webkit-mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.png');
-    mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.png');
+    -webkit-mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.webp');
+    mask-image: url('/Imagens/Index/Foto-sobre-contorno-vidro-v1.webp');
     -webkit-mask-position: center;
     mask-position: center;
     -webkit-mask-repeat: no-repeat;

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useLocation } from 'react-router-dom'
 import Foliage from '../components/Foliage'
 import { Button, IconCircle } from '../components/UI'
+import { services } from '../data/services'
 
 // Versão monocromática do símbolo oficial para acompanhar a paleta dourada.
 function WhatsAppIcon() {
@@ -24,21 +25,8 @@ function InstagramIcon() {
 
 const numeroWhatsApp = '5568999582647'
 
-const slugToNameMap: Record<string, string> = {
-  fotografia: 'Fotografia',
-  video: 'Vídeo',
-  arte: 'Arte',
-  'gestao-de-redes-sociais': 'Gestão de redes sociais',
-  'criacao-de-sites': 'Criação de Sites',
-}
-
-const servicosDisponiveis = [
-  'Fotografia',
-  'Vídeo',
-  'Arte',
-  'Gestão de redes sociais',
-  'Criação de Sites',
-]
+// Derivado de services.ts para não manter uma segunda lista de nomes em sincronia.
+const servicosDisponiveis = services.map((s) => s.title)
 
 const contactItems = [
   {
@@ -65,10 +53,9 @@ export default function Contato() {
   const [instagram, setInstagram] = useState('')
   const [mensagem, setMensagem] = useState('')
   const [servicosSelecionados, setServicosSelecionados] = useState<string[]>(() => {
-    const params = new URLSearchParams(location.search)
-    const serviceParam = params.get('servico')
-    const mapped = serviceParam && slugToNameMap[serviceParam]
-    return mapped ? [mapped] : []
+    const serviceParam = new URLSearchParams(location.search).get('servico')
+    const preSelecionado = services.find((s) => s.slug === serviceParam)
+    return preSelecionado ? [preSelecionado.title] : []
   })
   const [isLoading, setIsLoading] = useState(false)
 
@@ -143,25 +130,18 @@ ${listaServicos}${textoMensagem}`
             </p>
 
             <div className="flex flex-col items-center gap-5 lg:items-start">
-              {contactItems.map((item) =>
-                item.href ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 text-sm text-cream/90 transition-colors duration-300 hover:text-accent sm:text-base"
-                  >
-                    <IconCircle size="sm" className="!h-10 !w-10 transition-transform duration-300 group-hover:scale-110">{item.icon}</IconCircle>
-                    <span className="font-medium relative top-[1px]">{item.label}</span>
-                  </a>
-                ) : (
-                  <div key={item.label} className="flex items-center gap-4 text-sm text-cream/65 sm:text-base">
-                    <IconCircle size="sm" className="!h-10 !w-10">{item.icon}</IconCircle>
-                    <span className="font-medium relative top-[1px]">{item.label}</span>
-                  </div>
-                )
-              )}
+              {contactItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 text-sm text-cream/90 transition-colors duration-300 hover:text-accent sm:text-base"
+                >
+                  <IconCircle size="sm" className="!h-10 !w-10 transition-transform duration-300 group-hover:scale-110">{item.icon}</IconCircle>
+                  <span className="font-medium relative top-[1px]">{item.label}</span>
+                </a>
+              ))}
             </div>
           </div>
 
@@ -172,10 +152,10 @@ ${listaServicos}${textoMensagem}`
 
             {/* Seleção de Serviços */}
             <div className="mb-6">
-              <label className={labelClass}>
+              <span id="servicos-label" className={labelClass}>
                 Selecione os serviços de interesse: <span className="text-accent">*</span>
-              </label>
-              <div className="flex flex-wrap gap-2">
+              </span>
+              <div role="group" aria-labelledby="servicos-label" className="flex flex-wrap gap-2">
                 {servicosDisponiveis.map((s) => {
                   const isSelected = servicosSelecionados.includes(s)
                   return (
@@ -219,7 +199,6 @@ ${listaServicos}${textoMensagem}`
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   required
-                  aria-label="Digite seu nome completo"
                   className={inputClass}
                   placeholder="Seu nome"
                 />
@@ -235,7 +214,6 @@ ${listaServicos}${textoMensagem}`
                   value={instagram}
                   onChange={(e) => setInstagram(e.target.value)}
                   required
-                  aria-label="Digite o Instagram da sua empresa ou perfil"
                   className={inputClass}
                   placeholder="@seu.perfil"
                 />
@@ -252,7 +230,6 @@ ${listaServicos}${textoMensagem}`
                 value={tipoEmpresa}
                 onChange={(e) => setTipoEmpresa(e.target.value)}
                 required
-                aria-label="Qual o segmento ou tipo de serviço prestado?"
                 className={inputClass}
                 placeholder="Ex: Restaurante, Consultório, Moda, Advocacia..."
               />
@@ -267,7 +244,6 @@ ${listaServicos}${textoMensagem}`
                 rows={3}
                 value={mensagem}
                 onChange={(e) => setMensagem(e.target.value)}
-                aria-label="Digite detalhes ou necessidades do projeto"
                 className={`${inputClass} resize-y min-h-[85px]`}
                 placeholder="Conte um pouco sobre o que você precisa ou tem em mente..."
               />

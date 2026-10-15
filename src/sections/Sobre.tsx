@@ -36,11 +36,11 @@ export default function Sobre() {
             <div className="glass-card rounded-[1.2rem] p-2">
               <div className="about-portrait">
                 <img
-                  src="/Imagens/Index/Foto-sobre-recorte-v3.png"
+                  src="/Imagens/Index/Foto-sobre-recorte-v3.webp"
                   alt="Jessyane Soares"
                   loading="lazy"
-                  width={1023}
-                  height={1537}
+                  width={800}
+                  height={1202}
                   className="about-portrait__image"
                 />
                 <span className="about-portrait__glass-contour" aria-hidden="true" />

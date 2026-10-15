@@ -15,7 +15,7 @@ export default function Foliage({
       className={`pointer-events-none block select-none overflow-hidden ${className}`}
     >
       <img
-        src="/Imagens/Index/folhagem-samambaia.png?v=2"
+        src="/Imagens/Index/folhagem-samambaia.webp"
         alt=""
         loading="lazy"
         decoding="async"

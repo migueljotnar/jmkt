@@ -6,7 +6,7 @@ export default function Hero() {
     <section id="inicio" className="relative overflow-hidden bg-ink lg:h-[min(840px,100svh)] lg:min-h-[700px]">
       <div className="relative h-[360px] pt-20 sm:h-[450px] sm:pt-24 lg:absolute lg:inset-0 lg:h-full lg:pt-0">
         <img
-          src="/Imagens/Index/Background-inicio-verde.png"
+          src="/Imagens/Index/Background-inicio-verde.webp"
           alt="Jessyane Soares ao lado de uma xícara de café"
           fetchPriority="high"
           className="h-full w-full object-cover object-[75%_top] brightness-[1.01] contrast-[1.02] saturate-[1] lg:object-[68%_top] xl:object-[70%_top]"

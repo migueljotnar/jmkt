@@ -28,37 +28,37 @@ interface PortfolioPhoto {
 
 const portfolioPhotos: PortfolioPhoto[] = [
   {
-    src: '/Imagens/Index/gastronomia-principal.jpg',
+    src: '/Imagens/Index/gastronomia-principal.webp',
     alt: 'Fotografia gastronômica e produtos',
     title: 'Gastronomia & Produtos',
     category: 'Fotografia',
   },
   {
-    src: '/Imagens/Index/videomaker-principal.png',
+    src: '/Imagens/Index/videomaker-principal.webp',
     alt: 'Produção e direção de vídeo',
     title: 'Comercial & Institucional',
     category: 'Vídeo',
   },
   {
-    src: '/Imagens/Index/pessoais-principal.png',
+    src: '/Imagens/Index/pessoais-principal.webp',
     alt: 'Ensaios fotográficos autorais',
     title: 'Ensaios Autorais',
     category: 'Fotografia',
   },
   {
-    src: '/Imagens/Index/gestao-de-perfil-principal.png',
+    src: '/Imagens/Index/gestao-de-perfil-principal.webp',
     alt: 'Identidade visual e arte para redes sociais',
     title: 'Design & Redes Sociais',
     category: 'Arte',
   },
   {
-    src: '/Imagens/Index/sites-principal.png',
+    src: '/Imagens/Index/sites-principal.webp',
     alt: 'Criação de sites e landing pages',
     title: 'Plataformas & Sites',
     category: 'Criação de Sites',
   },
   {
-    src: '/Imagens/Index/Filmmaker-principal.png',
+    src: '/Imagens/Index/Filmmaker-principal.webp',
     alt: 'Produções cinematográficas e eventos',
     title: 'Cobertura Cinematográfica',
     category: 'Vídeo',

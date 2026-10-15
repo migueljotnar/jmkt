@@ -63,7 +63,6 @@ A estrutura do projeto foi desenhada visando modularidade, escalabilidade e faci
 
 ```text
 src/
-├── assets/       # Arquivos estáticos otimizados (mídias, ícones)
 ├── components/   # Blocos de construção de UI reutilizáveis
 ├── data/         # Entidades de dados estáticos e constantes (ex: models de serviços)
 ├── hooks/        # Encapsulamento de lógicas complexas (React Custom Hooks)

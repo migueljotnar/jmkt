@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useEscapeAndScrollLock } from '../hooks/useEscapeAndScrollLock'
 
-const sectionIds = ['inicio', 'sobre', 'servicos', 'portfolio', 'contato']
+const navItems = [
+  { id: 'inicio', label: 'Início' },
+  { id: 'sobre', label: 'Sobre' },
+  { id: 'servicos', label: 'Nossos Serviços' },
+  { id: 'portfolio', label: 'Portfólio' },
+  { id: 'contato', label: 'Contato' },
+]
 
 const navLinkClass =
   'relative pb-2 text-xs font-bold uppercase tracking-[0.14em] text-cream/80 no-underline transition-colors duration-300 before:absolute before:-bottom-[5px] before:left-1/2 before:h-1 before:w-1 before:-translate-x-1/2 before:rotate-45 before:bg-accent before:opacity-0 before:transition-opacity after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-center after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 hover:text-accent hover:after:scale-x-100 focus-visible:outline-none focus-visible:text-accent'
@@ -107,7 +113,7 @@ export default function Header() {
       const scrollLine = scrollY + 200 // linha de visão logo abaixo do header
 
       let currentSection = 'inicio'
-      for (const id of sectionIds) {
+      for (const { id } of navItems) {
         const element = document.getElementById(id)
         if (element && scrollLine >= element.offsetTop) {
           currentSection = id
@@ -172,8 +178,8 @@ export default function Header() {
               className="block h-10 w-10 sm:h-12 sm:w-12 bg-accent"
               aria-hidden="true"
               style={{
-                WebkitMask: "url('/logo-white.png') center / contain no-repeat",
-                mask: "url('/logo-white.png') center / contain no-repeat",
+                WebkitMask: "url('/logo-white.webp') center / contain no-repeat",
+                mask: "url('/logo-white.webp') center / contain no-repeat",
               }}
             />
           </Link>
@@ -200,21 +206,11 @@ export default function Header() {
           </button>
 
           <ul className="hidden md:flex list-none gap-9">
-            <li>
-              <NavLink sectionId="inicio" isHomePage={isHomePage} active={isHomePage && activeSection === 'inicio'} onNavigate={closeMenu}>Início</NavLink>
-            </li>
-            <li>
-              <NavLink sectionId="sobre" isHomePage={isHomePage} active={isHomePage && activeSection === 'sobre'} onNavigate={closeMenu}>Sobre</NavLink>
-            </li>
-            <li>
-              <NavLink sectionId="servicos" isHomePage={isHomePage} active={isHomePage && activeSection === 'servicos'} onNavigate={closeMenu}>Nossos Serviços</NavLink>
-            </li>
-            <li>
-              <NavLink sectionId="portfolio" isHomePage={isHomePage} active={isHomePage && activeSection === 'portfolio'} onNavigate={closeMenu}>Portfólio</NavLink>
-            </li>
-            <li>
-              <NavLink sectionId="contato" isHomePage={isHomePage} active={isHomePage && activeSection === 'contato'} onNavigate={closeMenu}>Contato</NavLink>
-            </li>
+            {navItems.map(({ id, label }) => (
+              <li key={id}>
+                <NavLink sectionId={id} isHomePage={isHomePage} active={isHomePage && activeSection === id} onNavigate={closeMenu}>{label}</NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
       </header>
@@ -235,11 +231,9 @@ export default function Header() {
         `}
       >
         <nav className="flex flex-col px-8 pt-24">
-          <NavLink sectionId="inicio" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'inicio'} onNavigate={closeMenu}>Início</NavLink>
-          <NavLink sectionId="sobre" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'sobre'} onNavigate={closeMenu}>Sobre</NavLink>
-          <NavLink sectionId="servicos" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'servicos'} onNavigate={closeMenu}>Nossos Serviços</NavLink>
-          <NavLink sectionId="portfolio" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'portfolio'} onNavigate={closeMenu}>Portfólio</NavLink>
-          <NavLink sectionId="contato" mobile isHomePage={isHomePage} active={isHomePage && activeSection === 'contato'} onNavigate={closeMenu}>Contato</NavLink>
+          {navItems.map(({ id, label }) => (
+            <NavLink key={id} sectionId={id} mobile isHomePage={isHomePage} active={isHomePage && activeSection === id} onNavigate={closeMenu}>{label}</NavLink>
+          ))}
         </nav>
       </div>
     </>

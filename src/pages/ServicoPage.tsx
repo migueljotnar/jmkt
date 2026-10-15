@@ -12,6 +12,7 @@ export default function ServicoPage() {
   useEffect(() => {
     if (!service) return
 
+    const previousTitle = document.title
     document.title = service.pageTitle
 
     const metaDescription = document.querySelector('meta[name="description"]')
@@ -19,7 +20,7 @@ export default function ServicoPage() {
     metaDescription?.setAttribute('content', service.description)
 
     return () => {
-      document.title = 'Jessyane Soares | Fotografia, Vídeo, Arte, Redes Sociais e Sites'
+      document.title = previousTitle
       metaDescription?.setAttribute('content', previousDescription)
     }
   }, [service])
